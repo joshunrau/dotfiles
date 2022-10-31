@@ -1,5 +1,7 @@
 [user]
 	name = joshunrau
 	email = contact@joshuaunrau.com
+[init]
+	defaultBranch = main
 [core]
 	excludesfile = ~/.gitignore
