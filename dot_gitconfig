@@ -1,0 +1,5 @@
+[user]
+	name = joshunrau
+	email = contact@joshuaunrau.com
+[core]
+	excludesfile = ~/.gitignore
