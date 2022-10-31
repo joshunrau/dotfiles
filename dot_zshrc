@@ -28,3 +28,26 @@ fi
 export DISABLE_AUTO_UPDATE="true"
 export PATH=$PATH:~/.local/bin
 export EDITOR=nano
+
+# Verify pip install if not using a pyenv virtualenv
+verify_pip_install() {
+  if ! pyenv virtualenv-prefix &> /dev/null; then
+    printf "WARNING: No pyenv virtual environment detected\n"
+    while true; do
+      printf "Please confirm you would like to proceed (y/n): "
+      read response
+      case $response in
+        [Yy]* ) 
+          return 0
+          ;;
+        [Nn]* )
+          return 1
+          ;;
+        * )
+        printf "Please answer yes or no.\n";;
+      esac
+    done
+  fi
+}
+
+alias pip="verify_pip_install && pip"
