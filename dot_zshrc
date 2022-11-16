@@ -12,6 +12,7 @@ plugins=(
   zsh-syntax-highlighting
 )
 
+zstyle ':omz:update' mode disabled
 source $ZSH/oh-my-zsh.sh
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
