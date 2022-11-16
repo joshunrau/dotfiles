@@ -26,7 +26,6 @@ fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # User configuration
-export DISABLE_AUTO_UPDATE="true"
 export PATH=$PATH:~/.local/bin
 export EDITOR=nano
 
