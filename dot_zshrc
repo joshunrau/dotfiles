@@ -6,6 +6,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
   dotenv
   git
+  npm
+  nvm
   pyenv
   virtualenv
   zsh-autosuggestions
