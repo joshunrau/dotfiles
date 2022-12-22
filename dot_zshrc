@@ -32,6 +32,9 @@ export DISABLE_AUTO_UPDATE="true"
 export PATH=$PATH:~/.local/bin
 export EDITOR=nano
 
+# Rust
+export PATH=$PATH:~/.cargo/bin
+
 # Verify pip install if not using a pyenv virtualenv
 verify_pip_install() {
   if ! pyenv virtualenv-prefix &> /dev/null; then
@@ -54,4 +57,3 @@ verify_pip_install() {
 }
 
 alias pip="verify_pip_install && pip"
-
