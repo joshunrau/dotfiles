@@ -30,30 +30,38 @@ fi
 # User configuration
 export DISABLE_AUTO_UPDATE="true"
 export PATH=$PATH:~/.local/bin
-export EDITOR=nano
+export EDITOR=micro
 
-# Rust
-export PATH=$PATH:~/.cargo/bin
+# Aliases
+alias edit=$EDITOR
+alias caa-home="communauto-alert $HOME_LATITUDE $HOME_LONGITUDE"
+alias caa-work="communauto-alert $WORK_LATITUDE $WORK_LONGITUDE"
 
-# Verify pip install if not using a pyenv virtualenv
-verify_pip_install() {
-  if ! pyenv virtualenv-prefix &> /dev/null; then
-    printf "WARNING: No pyenv virtual environment detected\n"
-    while true; do
-      printf "Please confirm you would like to proceed (y/n): "
-      read response
-      case $response in
-        [Yy]* ) 
-          return 0
-          ;;
-        [Nn]* )
-          return 1
-          ;;
-        * )
-        printf "Please answer yes or no.\n";;
-      esac
-    done
-  fi
+# Functions
+cicws43() {
+	case "$1" in
+	  shell)
+	    sshpass -p ${CIC_PASSWORD} ssh -t -p 2222 ${CIC_USERNAME}@${CIC_GATEWAY} "sshpass -p ${CIC_PASSWORD} ssh cicws43"
+	    ;;
+	  tunnel)
+	    remotePort=$2
+	  	localPort=$3
+	  	if [[ -z "$remotePort" ]]; then
+	  	  echo "Must specify remote port"
+	  	  return 1
+	  	elif [[ ! "$remotePort" =~ '^[0-9]+$' ]]; then
+	      echo "Invalid remote port: ${remotePort}"
+	      return 1
+	    elif [[ -z "$localPort" ]]; then
+	      localPort=$remotePort
+	    elif [[ ! "$localPort" =~ '^[0-9]+$' ]]; then
+	      echo "Invalid local port: ${localPort}"
+	      return 1
+	    fi
+	    sshpass -p ${CIC_PASSWORD} ssh -p 2222 -N -L ${localPort}:cicws43:${remotePort} ${CIC_USERNAME}@${CIC_GATEWAY}
+	    ;;
+	  *)
+	    echo "Usage: $0 {shell|tunnel}"
+	    ;;
+	esac
 }
-
-alias pip="verify_pip_install && pip"
