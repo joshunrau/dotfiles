@@ -32,7 +32,7 @@ export DISABLE_AUTO_UPDATE="true"
 export PATH=$PATH:~/.local/bin
 export EDITOR=micro
 
-# Aliases
+# Aliases 
 alias edit=$EDITOR
 alias caa-home="communauto-alert $HOME_LATITUDE $HOME_LONGITUDE"
 alias caa-work="communauto-alert $WORK_LATITUDE $WORK_LONGITUDE"
