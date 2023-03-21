@@ -64,3 +64,12 @@ cicws43() {
 	    ;;
 	esac
 }
+
+source /Users/joshua/.docker/init-zsh.sh || true # Added by Docker Desktop
+
+# bun completions
+[ -s "/Users/joshua/.bun/_bun" ] && source "/Users/joshua/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
