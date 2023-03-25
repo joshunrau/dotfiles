@@ -40,7 +40,7 @@ alias caa-work="communauto-alert $WORK_LATITUDE $WORK_LONGITUDE"
 cicws43() {
 	case "$1" in
 	  shell)
-	    sshpass -p ${CIC_PASSWORD} ssh -t -p 2222 ${CIC_USERNAME}@${CIC_GATEWAY} "sshpass -p ${CIC_PASSWORD} ssh cicws43"
+	    sshpass -p ${CIC_PASSWORD} ssh -t -p 46572 ${CIC_USERNAME}@${CIC_GATEWAY} "sshpass -p ${CIC_PASSWORD} ssh cicws43"
 	    ;;
 	  tunnel)
 	    remotePort=$2
@@ -57,7 +57,7 @@ cicws43() {
 	      echo "Invalid local port: ${localPort}"
 	      return 1
 	    fi
-	    sshpass -p ${CIC_PASSWORD} ssh -p 2222 -N -L ${localPort}:cicws43:${remotePort} ${CIC_USERNAME}@${CIC_GATEWAY}
+	    sshpass -p ${CIC_PASSWORD} ssh -p 46572 -N -L ${localPort}:cicws43:${remotePort} ${CIC_USERNAME}@${CIC_GATEWAY}
 	    ;;
 	  *)
 	    echo "Usage: $0 {shell|tunnel}"
