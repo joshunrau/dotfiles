@@ -72,4 +72,7 @@ source /Users/joshua/.docker/init-zsh.sh || true # Added by Docker Desktop
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$PATH:$BUN_INSTALL/bin"
+
+export GOPATH="$HOME/.go"
+export PATH="$PATH:$(go env GOPATH)/bin"
