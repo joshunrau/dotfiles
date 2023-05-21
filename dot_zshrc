@@ -64,5 +64,3 @@ cicws43() {
 	    ;;
 	esac
 }
-
-# source /Users/joshua/.docker/init-zsh.sh || true # Added by Docker Desktop
