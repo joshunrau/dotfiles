@@ -28,3 +28,11 @@ p10k configure
 nvm install --lts
 corepack enable
 ```
+
+## Install Python
+
+```
+# Replace 3.11 with whatever is the newest version
+pyenv install 3.11
+pyenv global 3.11
+```
