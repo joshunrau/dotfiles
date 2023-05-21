@@ -13,6 +13,7 @@ plugins=(
   zsh-syntax-highlighting
 )
 
+
 zstyle ':omz:update' mode disabled
 source $ZSH/oh-my-zsh.sh
 
