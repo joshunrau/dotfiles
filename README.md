@@ -7,7 +7,7 @@ First, install Xcode Command Line Tools, Homebrew, and iTerm2.
 ## Install Packages
 
 ```shell
-brew install chezmoi micro pyenv pyenv-virtualenv nvm
+brew install chezmoi micro pyenv pyenv-virtualenv nvm fd tldr
 ```
 
 ## Apply Config
