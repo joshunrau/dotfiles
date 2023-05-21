@@ -7,7 +7,7 @@ First, install Xcode Command Line Tools, Homebrew, and iTerm2.
 ## Install Packages
 
 ```shell
-brew install chezmoi pyenv pyenv-virtualenv micro
+brew install chezmoi micro pyenv pyenv-virtualenv nvm
 ```
 
 ## Apply Config
@@ -22,4 +22,9 @@ chezmoi apply
 ```shell
 p10k configure
 ```
+## Setup Node.js
 
+```
+nvm install --lts
+corepack enable
+```
