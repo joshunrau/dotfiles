@@ -35,38 +35,7 @@ export EDITOR=micro
 
 # Aliases 
 alias edit=$EDITOR
-alias caa-home="communauto-alert $HOME_LATITUDE $HOME_LONGITUDE"
-alias caa-work="communauto-alert $WORK_LATITUDE $WORK_LONGITUDE"
-
-# Functions
-cicws43() {
-	case "$1" in
-	  shell)
-	    sshpass -p ${CIC_PASSWORD} ssh -t -p 46572 ${CIC_USERNAME}@${CIC_GATEWAY} "sshpass -p ${CIC_PASSWORD} ssh cicws43"
-	    ;;
-	  tunnel)
-	    remotePort=$2
-	  	localPort=$3
-	  	if [[ -z "$remotePort" ]]; then
-	  	  echo "Must specify remote port"
-	  	  return 1
-	  	elif [[ ! "$remotePort" =~ '^[0-9]+$' ]]; then
-	      echo "Invalid remote port: ${remotePort}"
-	      return 1
-	    elif [[ -z "$localPort" ]]; then
-	      localPort=$remotePort
-	    elif [[ ! "$localPort" =~ '^[0-9]+$' ]]; then
-	      echo "Invalid local port: ${localPort}"
-	      return 1
-	    fi
-	    sshpass -p ${CIC_PASSWORD} ssh -p 46572 -N -L ${localPort}:cicws43:${remotePort} ${CIC_USERNAME}@${CIC_GATEWAY}
-	    ;;
-	  *)
-	    echo "Usage: $0 {shell|tunnel}"
-	    ;;
-	esac
-}
-
+alias nano=micro
 alias ls=lsd
 
 # Android
