@@ -1,3 +1,9 @@
+# Usage
+
+```shell
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply joshunrau
+```
+
 # Development Setup on New Machine (MacOS)
 
 ## Prerequisites
