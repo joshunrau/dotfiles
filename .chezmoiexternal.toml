@@ -1,4 +1,4 @@
-[".pyenv]
+[".pyenv"]
     url = "https://github.com/pyenv/pyenv/archive/master.tar.gz"
     type = "archive"
     exact = true
