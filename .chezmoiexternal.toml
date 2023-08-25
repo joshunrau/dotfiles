@@ -4,6 +4,12 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "168h"
+[".pyenv/plugins/pyenv-virtualenv]
+    url = "https://github.com/pyenv/pyenv-virtualenv/archive/master.tar.gz"
+    type = "archive"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
 [".nvm"]
     type = "archive"
     url = "https://github.com/nvm-sh/nvm/archive/master.tar.gz"
