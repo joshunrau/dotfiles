@@ -1,6 +1,6 @@
 # Usage
 
 ```shell
-pacman -S chezmoi
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin
 chezmoi init -apply joshunrau
 ```
