@@ -39,4 +39,4 @@ export EDITOR=micro
 
 # Aliases 
 alias nano=micro
-alias ls=lsd
+
