@@ -40,3 +40,7 @@ export EDITOR=micro
 # Aliases 
 alias nano=micro
 
+function git-branch-purge() {
+	git branch --v | grep "\[gone\]" | awk '{print $1}' | xargs git branch -D
+}
+
