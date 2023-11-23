@@ -5,8 +5,8 @@ export PATH="{{ .localDir }}/bin:$PATH"
 
 {{- if eq .chezmoi.hostname "dnpws15" -}}
 # SETUP XDG DIRECTORIES
-export XDG_CACHE_HOME=/local/var/cache
 export XDG_CONFIG_HOME=/local/etc
 export XDG_DATA_HOME=/local/share
+export XDG_CACHE_HOME=/local/var/cache
 export XDG_STATE_HOME=/local/var/lib
 {{- end -}}
