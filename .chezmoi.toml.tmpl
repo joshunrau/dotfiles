@@ -4,8 +4,13 @@
 {{- $localDir = "/local" -}}
 {{- end -}}
 
+{{- $pyenvRoot:= "{{ $localDir }}/opt/pyenv" -}}
+
 [data]
     localDir = "{{ $localDir }}"
+    pyenvRoot = "{{ $pyenvRoot }}"
 [git]
     autoCommit = true
     autoPush = true
+[scriptEnv]
+    PYENV_ROOT = "{{ $pyenvRoot }}"
