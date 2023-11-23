@@ -1,6 +1,9 @@
-{{ if eq .chezmoi.hostname "dnpws15" }}
-$localBinDir := "/local/bin"
-{{ end }}
+{{- $localBinDir := "$HOME/.bin" -}}
+
+{{- if eq .chezmoi.hostname "dnpws15" -}}
+{{- $localBinDir = "/local/bin" -}}
+{{- end -}}
+
 
 [env]
     localBinDir = "{{ $localBinDir }}"
