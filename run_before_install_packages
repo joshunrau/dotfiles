@@ -1,6 +1,10 @@
 #!/usr/bin/env zsh
 
-echo $PYENV_ROOT
+if [[ ! -d $PYENV_ROOT ]]; then
+  echo "Not a directory: ${PYENV_ROOT}"
+fi
+
+
 
 # [".pyenv"]
 #     url = "https://github.com/pyenv/pyenv/archive/master.tar.gz"
