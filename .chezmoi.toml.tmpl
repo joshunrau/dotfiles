@@ -1,11 +1,14 @@
 {{- $localBinDir := "$HOME/.bin" -}}
+{{- $pyenvRoot := "$HOME/.pyenv" -}}
 
 {{- if eq .chezmoi.hostname "dnpws15" -}}
-{{- $localBinDir = "/local/bin" -}}
+{{-     $localBinDir = "/local/bin" -}}
+{{-     $pyenvRoot = "/local/opt/pyenv" -}}
 {{- end -}}
 
 [data]
     localBinDir = "{{ $localBinDir }}"
+    pyenvRoot = "{{ $pyenvRoot }}"
 [git]
     autoCommit = true
     autoPush = true
