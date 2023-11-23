@@ -1,6 +1,3 @@
-# Usage
-
 ```shell
-sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin
-~/.local/bin/chezmoi init --apply joshunrau
+curl -fsS https://raw.githubusercontent.com/joshunrau/dotfiles/main/install.sh | sh
 ```
