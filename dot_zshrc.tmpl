@@ -1,65 +1,65 @@
 #!/usr/bin/env zsh
 
-# shellcheck disable=all
+# # shellcheck disable=all
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh" 
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# # Path to your oh-my-zsh installation.
+# export ZSH="$HOME/.oh-my-zsh" 
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 
-plugins=(
-  docker
-  docker-compose
-  dotenv
-  git
-  npm
-  nvm
-  pyenv
-  virtualenv
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-)
+# plugins=(
+#   docker
+#   docker-compose
+#   dotenv
+#   git
+#   npm
+#   nvm
+#   pyenv
+#   virtualenv
+#   zsh-autosuggestions
+#   zsh-syntax-highlighting
+# )
 
 
-zstyle ':omz:update' mode disabled
-source $ZSH/oh-my-zsh.sh
+# zstyle ':omz:update' mode disabled
+# source $ZSH/oh-my-zsh.sh
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# # Initialization code that may require console input (password prompts, [y/n]
+# # confirmations, etc.) must go above this block; everything else may go below.
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
-# Load p10k
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# # Load p10k
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# User configuration
-export DISABLE_AUTO_UPDATE="true"
-export PATH=$PATH:~/.local/bin
-export EDITOR=micro
+# # User configuration
+# export DISABLE_AUTO_UPDATE="true"
+# export PATH=$PATH:~/.local/bin
+# export EDITOR=micro
 
-# Aliases 
-alias nano=micro
+# # Aliases 
+# alias nano=micro
 
-function git-branch-purge() {
-	git branch --v | grep "\[gone\]" | awk '{print $1}' | xargs git branch -D
-}
+# function git-branch-purge() {
+# 	git branch --v | grep "\[gone\]" | awk '{print $1}' | xargs git branch -D
+# }
 
-{{ if eq .chezmoi.hostname "dnpws15" }}
+# {{ if eq .chezmoi.hostname "dnpws15" }}
 
-# Local Setup
-export PATH="/local/bin:$PATH"
+# # Local Setup
+# export PATH="/local/bin:$PATH"
 
-# Bun
-export BUN_INSTALL="/local/opt/bun"
-[ -s "${BUN_INSTALL}/_bun" ] && source "${BUN_INSTALL}/_bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+# # Bun
+# export BUN_INSTALL="/local/opt/bun"
+# [ -s "${BUN_INSTALL}/_bun" ] && source "${BUN_INSTALL}/_bun"
+# export PATH="$BUN_INSTALL/bin:$PATH"
 
-# NVM
-export NVM_DIR=/local/opt/nvm
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# # NVM
+# export NVM_DIR=/local/opt/nvm
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-cd /local/home
-{{ end }}
+# cd /local/home
+# {{ end }}
 
-echo "{{ .localBinDir }}"
+# echo "{{ .localBinDir }}"

@@ -1,11 +1,11 @@
 #!/usr/bin/env zsh
 
-# homebrew
-{{ if eq .chezmoi.os "darwin" }}
+# HOMEBREW
+{{- if eq .chezmoi.os "darwin" -}}
 eval "$(/opt/homebrew/bin/brew shellenv)"
-{{ end }}
+{{- end -}}
 
-# pyenv for noninteractive login shells
-export PYENV_ROOT="$HOME/.pyenv"
+# PYENV
+export PYENV_ROOT="{{ .localDir }}/opt/pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"

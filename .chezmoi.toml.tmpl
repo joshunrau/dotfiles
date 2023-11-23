@@ -1,0 +1,11 @@
+{{- $localDir:= "$HOME/.local" -}}
+
+{{- if eq .chezmoi.hostname "dnpws15" -}}
+{{- $localDir = "/local" -}}
+{{- end -}}
+
+[data]
+    localDir = "{{ $localDir }}"
+[git]
+    autoCommit = true
+    autoPush = true
