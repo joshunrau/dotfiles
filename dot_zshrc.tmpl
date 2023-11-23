@@ -44,16 +44,6 @@ function git-branch-purge() {
 	git branch --v | grep "\[gone\]" | awk '{print $1}' | xargs git branch -D
 }
 
-{{ if eq .chezmoi.os "linux" }}
-
-# Bun
-export BUN_INSTALL="/local/opt/bun"
-[ -s "${BUN_INSTALL}/_bun" ] && source "${BUN_INSTALL}/_bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-
-# NVM
-export NVM_DIR=/local/opt/nvm
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
-{{ end }}
+if [ -f ~/.zshrc.local ]; then
+	source ~/.zshrc.local
+fi
