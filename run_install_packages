@@ -1,5 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 
+echo $PYENV_ROOT
 
 # [".pyenv"]
 #     url = "https://github.com/pyenv/pyenv/archive/master.tar.gz"
