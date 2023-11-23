@@ -1,3 +1,9 @@
+{{ if eq .chezmoi.hostname "dnpws15" }}
+{{ $localBinDir := "/local/bin" -}}
+{{ end }}
+
+[env]
+    localBinDir = $localBinDir
 [git]
     autoCommit = true
     autoPush = true
