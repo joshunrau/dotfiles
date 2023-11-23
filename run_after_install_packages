@@ -1,9 +1,15 @@
 #!/usr/bin/env zsh
 
+PYENV_VIRTUALENV_DIR="${PYENV_ROOT}/plugins/pyenv-virtualenv"
+
 # PYENV
 if [[ ! -d $PYENV_ROOT ]]; then
   git clone https://github.com/pyenv/pyenv.git $PYENV_ROOT
 fi
+if [[ ! -d $PYENV_VIRUTALENV_ROOT ]]; then
+  git clone https://github.com/pyenv/pyenv-virtualenv.git $PYENV_ROOT
+fi
+
 
 
 
