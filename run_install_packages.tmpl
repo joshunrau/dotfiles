@@ -1,48 +1,43 @@
 #!/usr/bin/env zsh
 
+WORKING_DIR=$PWD
+
 PYENV_ROOT="{{ .pyenvRoot }}"
-PYENV_VIRTUALENV_DIR="${PYENV_ROOT}/plugins/pyenv-virtualenv"
+PYENV_VIRTUALENV_ROOT="${PYENV_ROOT}/plugins/pyenv-virtualenv"
+
+NVM_ROOT="{{ .nvmRoot }}"
+OH_MY_ZSH_ROOT="{{ .ohMyZshRoot }}"
+ZSH_AUTOSUGGESTIONS_ROOT="${OH_MY_ZSH_ROOT}/custom/plugins/zsh-autosuggestions"
+ZSH_SYNTAX_HIGHLIGHTING_ROOT="${OH_MY_ZSH_ROOT}/custom/plugins/zsh-syntax-highlighting"
+POWERLEVEL10K_ROOT="${OH_MY_ZSH_ROOT}/custom/themes/powerlevel10k"
+
+echo "Current working directory: ${WORKING_DIR}"
+
+function installFromGithub() {
+  installDir=$1
+  gitRepo=$2
+
+  packageName=$(echo $gitRepo | sed 's/.*\/\([^ ]*\/[^.]*\).*/\1/')
+  if [[ ! -d $installDir ]]; then
+    echo "Cloning repository '${packageName}' in directory: ${installDir}"
+    git clone --depth=1 $gitRepo $installDir
+    echo "Done!"
+  else
+    echo "Skipping install of ${packageName} since directory already exists: ${installDir}"
+  fi
+}
+
 
 # PYENV
-if [[ ! -d $PYENV_ROOT ]]; then
-  echo "Installing pyenv in directory: ${PYENV_ROOT}"
-  git clone https://github.com/pyenv/pyenv.git $PYENV_ROOT
-fi
-if [[ ! -d $PYENV_VIRUTALENV_ROOT ]]; then
-  echo "Installing pyenv-virtualenv in directory: ${PYENV_ROOT}"
-  git clone https://github.com/pyenv/pyenv-virtualenv.git $PYENV_ROOT
-fi
+installFromGithub $PYENV_ROOT https://github.com/pyenv/pyenv.git
+installFromGithub $PYENV_VIRUTALENV_ROOT https://github.com/pyenv/pyenv-virtualenv.git
 
 
+# NVM
+installFromGithub $NVM_ROOT https://github.com/nvm-sh/nvm.git
 
-
-
-# [".pyenv/plugins/pyenv-virtualenv"]
-#     url = "https://github.com/pyenv/pyenv-virtualenv/archive/master.tar.gz"
-#     type = "archive"
-#     stripComponents = 1
-#     refreshPeriod = "168h"
-# [".nvm"]
-#     type = "archive"
-#     url = "https://github.com/nvm-sh/nvm/archive/master.tar.gz"
-#     stripComponents = 1
-#     refreshPeriod = "168h"
-# [".oh-my-zsh"]
-#     type = "archive"
-#     url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
-#     stripComponents = 1
-#     refreshPeriod = "168h"
-# [".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
-#     type = "archive"
-#     url = "https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz"
-#     stripComponents = 1
-#     refreshPeriod = "168h"
-# [".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
-#     type = "archive"
-#     url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/master.tar.gz"
-#     stripComponents = 1
-#     refreshPeriod = "168h"
-# [".oh-my-zsh/custom/themes/powerlevel10k"]
-#     type = "archive"
-#     url = "https://github.com/romkatv/powerlevel10k/archive/v1.16.1.tar.gz"
-#     stripComponents = 1
+# OH MY ZSH
+installFromGithub $OH_MY_ZSH_ROOT https://github.com/ohmyzsh/ohmyzsh.git
+installFromGithub $ZSH_AUTOSUGGESTIONS_ROOT https://github.com/zsh-users/zsh-autosuggestions
+installFromGithub $ZSH_SYNTAX_HIGHLIGHTING_ROOT https://github.com/zsh-users/zsh-syntax-highlighting.git
+installFromGithub $POWERLEVEL10K_ROOT https://github.com/romkatv/powerlevel10k.git
