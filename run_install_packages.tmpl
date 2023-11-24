@@ -17,6 +17,12 @@ function installFromGithub() {
   installDir=$1
   gitRepo=$2
 
+  if [ -z "${installDir}" ]; then
+    echo "Error: install directory must be defined" && exit 1
+  elif [ -z "${gitRepo}" ]; then
+    echo "Error: git repository must be defined" && exit 1
+  fi
+
   packageName=$(echo $gitRepo | sed 's/.*\/\([^ ]*\/[^.]*\).*/\1/')
   if [[ ! -d $installDir ]]; then
     echo "Cloning repository '${packageName}' in directory: ${installDir}"
@@ -31,7 +37,6 @@ function installFromGithub() {
 # PYENV
 installFromGithub $PYENV_ROOT https://github.com/pyenv/pyenv.git
 installFromGithub $PYENV_VIRUTALENV_ROOT https://github.com/pyenv/pyenv-virtualenv.git
-
 
 # NVM
 installFromGithub $NVM_ROOT https://github.com/nvm-sh/nvm.git
