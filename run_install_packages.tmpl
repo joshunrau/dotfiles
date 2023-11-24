@@ -13,9 +13,6 @@ POWERLEVEL10K_ROOT="${OH_MY_ZSH_ROOT}/custom/themes/powerlevel10k"
 
 echo "Current working directory: ${WORKING_DIR}"
 
-echo $PYENV_ROOT
-echo $PYENV_VIRTUALENV_ROOT
-
 function installFromGithub() {
   installDir=$1
   gitRepo=$2
@@ -39,7 +36,7 @@ function installFromGithub() {
 
 # PYENV
 installFromGithub $PYENV_ROOT https://github.com/pyenv/pyenv.git
-installFromGithub $PYENV_VIRUTALENV_ROOT https://github.com/pyenv/pyenv-virtualenv.git
+installFromGithub $PYENV_VIRTUALENV_ROOT https://github.com/pyenv/pyenv-virtualenv.git
 
 # NVM
 installFromGithub $NVM_ROOT https://github.com/nvm-sh/nvm.git
