@@ -4,11 +4,11 @@ SOURCE_DIR="{{ .chezmoi.sourceDir }}"
 WORKING_DIR=$PWD
 LOCAL_DIR="{{ .localDir }}"
 
-{{- if eq .chezmoi.os "darwin" -}}
+{{ if eq .chezmoi.os "darwin" }}
 FONTS_DIR="${HOME}/Library/Fonts"
-{{- else -}}
+{{ else }}
 FONTS_DIR="${LOCAL_DIR}/share/fonts"
-{{- end -}}
+{{ end }}
 
 PYENV_ROOT="{{ .pyenvRoot }}"
 PYENV_VIRTUALENV_ROOT="${PYENV_ROOT}/plugins/pyenv-virtualenv"
