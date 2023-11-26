@@ -56,11 +56,9 @@ installFromGithub $ZSH_SYNTAX_HIGHLIGHTING_ROOT https://github.com/zsh-users/zsh
 installFromGithub $POWERLEVEL10K_ROOT https://github.com/romkatv/powerlevel10k.git
 
 # FONTS
-if [[ ! -d $FONTS_DIR ]]; then
-    echo "Installing fonts in directory: ${FONTS_DIR}"
-    cp -r "${SOURCE_DIR}/share/fonts" $FONTS_DIR
-    echo "Done!"
-fi
+echo "Installing fonts in directory: ${FONTS_DIR}"
+cp -r "${SOURCE_DIR}/share/fonts" $FONTS_DIR
+echo "Done!"
 
 # OTHER
 {{ if eq .chezmoi.os "darwin" }}
