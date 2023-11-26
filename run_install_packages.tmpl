@@ -63,6 +63,6 @@ if [[ ! -d $FONTS_DIR ]]; then
 fi
 
 # OTHER
-{{- if eq .chezmoi.os "darwin" -}}
-brew install micro
-{{- end -}}
+{{ if eq .chezmoi.os "darwin" }}
+brew install micro tldr
+{{ end }}
