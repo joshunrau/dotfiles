@@ -61,3 +61,8 @@ if [[ ! -d $FONTS_DIR ]]; then
     cp -r "${SOURCE_DIR}/share/fonts" $FONTS_DIR
     echo "Done!"
 fi
+
+# OTHER
+{{- if eq .chezmoi.os "darwin" -}}
+brew install micro
+{{- end -}}
