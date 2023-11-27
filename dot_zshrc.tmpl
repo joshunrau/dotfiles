@@ -44,7 +44,7 @@ export PYENV_ROOT="{{ .pyenvRoot }}"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 
-# # NVM
+# NVM
 export NVM_DIR="{{ .nvmRoot }}"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
