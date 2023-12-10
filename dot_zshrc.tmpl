@@ -48,13 +48,7 @@ eval "$(pyenv init --path)"
 export NVM_DIR="{{ .nvmRoot }}"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-# {{ if eq .chezmoi.hostname "dnpws15" }}
-
-# # Bun
-# export BUN_INSTALL="/local/opt/bun"
-# [ -s "${BUN_INSTALL}/_bun" ] && source "${BUN_INSTALL}/_bun"
-# export PATH="$BUN_INSTALL/bin:$PATH"
-
-# {{ end }}
+# RUST
+source "$CARGO_HOME/env"
 
 
