@@ -51,7 +51,7 @@ export NVM_DIR="{{ .nvmRoot }}"
 # RUST
 source "$CARGO_HOME/env"
 
-{{- if eq .chezmoi.hostname "dnpws15" -}}
+{{ if eq .chezmoi.hostname "dnpws15" }}
 cd () {
     if [ $# -eq 0 ]; then
         builtin cd /local/home
