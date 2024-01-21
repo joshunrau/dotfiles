@@ -49,7 +49,7 @@ export NVM_DIR="{{ .nvmRoot }}"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 # RUST
-source "$CARGO_HOME/env"
+[[ -f "$CARGO_HOME/env" ]] && source "$CARGO_HOME/env"
 
 {{ if eq .chezmoi.hostname "dnpws15" }}
 cd () {
