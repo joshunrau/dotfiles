@@ -1,0 +1,13 @@
+#!/bin/bash
+
+COMMAND=$1
+TARGET_MONITOR="DVI-D-1"
+
+case "$COMMAND" in
+  on | off)
+    hyprctl dispatch dpms "$COMMAND" "$TARGET_MONITOR"
+    ;;
+  *)
+    echo "Usage: $0 {on|off}" && exit 1
+    ;;
+esac
