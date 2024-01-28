@@ -4,7 +4,7 @@ set -eu -o pipefail
 
 TARGET_DIR=~/.dotfiles
 if [ ! -d "$TARGET_DIR" ]; then
-  git clone https://github.com/joshunrau/dotfiles.git "$TARGET_DIR" && cd "$TARGET_DIR"
+  git clone -q https://github.com/joshunrau/dotfiles.git "$TARGET_DIR" && cd "$TARGET_DIR"
 else
   cd "$TARGET_DIR" && git pull
 fi
