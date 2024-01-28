@@ -2,5 +2,5 @@
 
 ## Install
 ```shell
-sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin init --apply joshunrau
+curl -sSf https://raw.githubusercontent.com/joshunrau/dotfiles/main/install.sh | zsh
 ```
