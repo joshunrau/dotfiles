@@ -1,6 +1,6 @@
 #!/bin/bash
 
-iDIR="$HOME/.config/hypr/mako/icons"
+iDIR="$HOME/.config/hypr/assets/icons"
 
 # Get keyboard brightness
 get_kbd_backlight() {
