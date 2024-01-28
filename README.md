@@ -2,5 +2,5 @@
 
 ## Install
 ```shell
-curl -sSf https://raw.githubusercontent.com/joshunrau/dotfiles/main/install.sh | zsh
+curl -sSf https://raw.githubusercontent.com/joshunrau/dotfiles/main/install.py | python
 ```
