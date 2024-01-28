@@ -2,8 +2,7 @@
 
 set -eu -o pipefail
 
-TARGET_DIR="$PWD/.dotfiles"
-
+TARGET_DIR=~/.dotfiles
 if [ ! -d "$TARGET_DIR" ]; then
   git clone https://github.com/joshunrau/dotfiles.git "$TARGET_DIR"
 fi
