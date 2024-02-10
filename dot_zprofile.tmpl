@@ -4,3 +4,12 @@
 {{ if eq .chezmoi.os "darwin" }}
 eval "$(/opt/homebrew/bin/brew shellenv)"
 {{ end }}
+
+# PYENV
+eval "$(pyenv init --path)"
+
+# NVM
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# RUST
+[[ -f "$CARGO_HOME/env" ]] && source "$CARGO_HOME/env"

@@ -41,18 +41,6 @@ function git-branch-purge() {
 	git branch --v | grep "\[gone\]" | awk '{print $1}' | xargs git branch -D
 }
 
-# PYENV
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
-# RUST
-[[ -f "$CARGO_HOME/env" ]] && source "$CARGO_HOME/env"
-
 alias cat='bat --paging=never'
 alias ls='lsd'
 
