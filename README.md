@@ -3,7 +3,7 @@
 ## Install
 
 ```shell
-pacman -S chezmoi
+pacman -S bat chezmoi dust fd 
 chezmoi init --apply --ssh joshunrau
 ```
 
