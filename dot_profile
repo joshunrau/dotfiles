@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# RUST
+. "$CARGO_HOME/env"
