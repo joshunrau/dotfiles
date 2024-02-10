@@ -1,14 +1,3 @@
-{{- $localDir:= "$HOME/.local" -}}
-
-{{- if eq .chezmoi.hostname "dnpws15" -}}
-{{- $localDir = "/local" -}}
-{{- end -}}
-
-[data]
-    localDir = "{{ $localDir }}"
-    pyenvRoot = "{{ $localDir }}/opt/pyenv"
-    nvmRoot = "{{ $localDir }}/opt/nvm"
-    ohMyZshRoot = "{{ $localDir }}/opt/oh-my-zsh"
 [git]
     autoCommit = true
     autoPush = true
