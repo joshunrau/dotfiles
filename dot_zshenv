@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+# SET BASE DIRECTORY FOR USER FILES
 export LOCAL_DIR="$HOME/.local"
 
 # CONFIGURE PATH FOR LOCAL BINARIES
@@ -8,13 +9,6 @@ export PATH="$LOCAL_DIR/bin:$PATH"
 # RUST
 export CARGO_HOME="$HOME/.cargo"
 export RUSTUP_HOME="$HOME/.rustup"
-
-# PYENV
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-
-# NVM
-export NVM_DIR="$HOME/.nvm"
 
 # OTHER USER CONFIG
 export EDITOR=micro
