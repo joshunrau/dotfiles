@@ -13,8 +13,10 @@ for file ($HOME/.zsh/*.zsh); do
 done
 
 # SOURCE THEME
-source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
-source ~/.p10k.zsh
+if [[ $ZSH_VERSION > 5.1 ]]; then
+    source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+    source ~/.p10k.zsh
+fi
 
 # SOURCE 3RD PARTY PLUGINS
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
