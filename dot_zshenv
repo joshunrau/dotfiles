@@ -15,5 +15,8 @@ export RUSTUP_HOME="$HOME/.rustup"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
+# NVM
+export NVM_DIR="$HOME/.nvm"
+
 # OTHER USER CONFIG
 export EDITOR=micro

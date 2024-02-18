@@ -1,8 +1,11 @@
 #!/usr/bin/env zsh
 
-# ACTIVAT$E PYENV
+# ACTIVATE PYENV
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+# ACTIVATE NVM
+source "$NVM_DIR/nvm.sh"
 
 # SOURCE ADDITIONAL CONFIG
 for file ($HOME/.zsh/*.zsh); do
