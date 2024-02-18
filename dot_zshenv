@@ -7,8 +7,7 @@ export LOCAL_DIR="$HOME/.local"
 export PATH="$LOCAL_DIR/bin:$PATH"
 
 # RUST
-export CARGO_HOME="$HOME/.cargo"
-export RUSTUP_HOME="$HOME/.rustup"
+source "$HOME/.cargo/env"
 
 # OTHER USER CONFIG
 export EDITOR=micro
