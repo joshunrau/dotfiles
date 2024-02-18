@@ -1,5 +1,10 @@
 #!/usr/bin/env zsh
 
+# ACTIVAT$E PYENV
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# SOURCE ADDITIONAL CONFIG
 for file ($HOME/.zsh/*.zsh); do
     source $file
 done
