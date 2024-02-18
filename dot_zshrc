@@ -19,3 +19,6 @@ source ~/.p10k.zsh
 # SOURCE 3RD PARTY PLUGINS
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# SOURCE ANY MACHINE-SPECIFIC CONFIG
+[[ -f ".zshrc.local" ]] && source .zshrc.local
