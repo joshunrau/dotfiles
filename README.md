@@ -12,6 +12,6 @@ chezmoi init --apply --ssh joshunrau
 ### MacOS
 
 ```shell
-brew install bandwhich bat chezmoi dust fd htmlq jless lsd  micro procs sd tokei
+brew install bandwhich bat chezmoi dust fd htmlq jless lsd  micro procs sd tokei xz
 chezmoi init --apply joshunrau
 ```
