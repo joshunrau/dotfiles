@@ -13,6 +13,11 @@
     url = "https://github.com/nvm-sh/nvm/archive/master.tar.gz"
     stripComponents = 1
     refreshPeriod = "168h"
+[".zsh/powerlevel10k"]
+    type = "archive"
+    url = "https://github.com/romkatv/powerlevel10k/archive/master.tar.gz"
+    stripComponents = 1
+    refreshPeriod = "168h"
 [".zsh/zsh-autosuggestions"]
     type = "archive"
     url = "https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz"
