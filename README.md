@@ -1,17 +1,25 @@
 # Dotfiles
 
+This repository hosts my personal dotfiles configuration, managed via chezmoi.
+
 ## Install
 
 ### Arch Linux
 
-```shell
+```sh
 pacman -S bandwhich bat chezmoi dust fd htmlq hub jless lsd micro procs ripgrep sd tokei
 chezmoi init --apply --ssh joshunrau
 ```
 
 ### MacOS
 
-```shell
+```sh
 brew install bandwhich bash bat chezmoi dust fd htmlq hub jless lsd  micro procs sd tokei xz
 chezmoi init --apply joshunrau
+```
+
+## Update
+
+```sh
+chezmoi update --apply
 ```
