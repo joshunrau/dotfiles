@@ -16,6 +16,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
 # PIPENV
+export PIPENV_VERBOSITY=-1
 export PIPENV_VENV_IN_PROJECT=1
 
 # NVM
