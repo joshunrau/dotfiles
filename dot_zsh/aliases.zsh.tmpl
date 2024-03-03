@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+alias ls='lsd'
+
+# FIX APPLE ALIASING GCC TO CLANG
+{{ if eq .chezmoi.os "darwin" }}
+alias gcc="gcc-13"
+alias g++="g++-13"
+{{ end }}
