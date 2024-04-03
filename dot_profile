@@ -4,3 +4,6 @@
 export CARGO_HOME="$HOME/.cargo"
 export RUSTUP_HOME="$HOME/.rustup"
 [ -d $CARGO_HOME ] && . "$CARGO_HOME/env"
+
+# GO
+export GOPATH="$HOME/.go"

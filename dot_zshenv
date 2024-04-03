@@ -22,6 +22,9 @@ export PIPENV_VENV_IN_PROJECT=1
 # NVM
 export NVM_DIR="$HOME/.nvm"
 
+# GO
+export GOPATH="$HOME/.go"
+
 # OTHER USER CONFIG
 export EDITOR=micro
 
