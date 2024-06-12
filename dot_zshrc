@@ -7,9 +7,6 @@ eval "$(pyenv virtualenv-init -)"
 # ACTIVATE NVM
 source "$NVM_DIR/nvm.sh"
 
-# ACTIVATE HUB
-eval "$(hub alias -s)"
-
 # SOURCE ADDITIONAL CONFIG
 for file ($HOME/.zsh/*.zsh); do
     source $file
