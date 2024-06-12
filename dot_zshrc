@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-fpath=(~/.zsh/plugins $fpath)
+fpath=(~/.zsh/functions ~/.zsh/plugins $fpath)
 
 # NAVIGATION
 setopt AUTO_PUSHD           # Push the old directory onto the stack on cd.
