@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+autoload -U compinit; compinit
+
 # ACTIVATE PYENV
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
