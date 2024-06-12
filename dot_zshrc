@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-fpath=(~.zsh/plugins $fpath)
+fpath=(~/.zsh/plugins $fpath)
 
 # ACTIVATE PYENV
 eval "$(pyenv init -)"
