@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+if [[ -z "$1" ]]; then
+  echo "Error: must specify target file"
+  exit 1
+fi
+
+tar cvzf "$1.tar.gz" "$1"
