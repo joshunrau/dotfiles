@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+
+read -r -d '' usage << EOM
+Usage: ${funcstack[1]} [options] <filename>
+
+Arguments:
+  filename                the image to optimize
+
+Options:
+  -h, --help              display help for command
+  -o, --output            the output file (if not set, will overwrite the input file)
+  -q, --quality           the quality of the image (0-100%, default=85%)
+EOM
+
+zparseopts -D -E -F - h=help -help=help o:=output -output:=output q:=quality -quality:=quality || exit 1
+
+help=${#help}
+if (( $help )); then
+  echo $usage
+  return
+fi
+
+if [[ -z "$1" ]]; then
+  echo "Error: must specify target file" && exit 1
+fi
+
+output=${output[-1]:-$1}
+quality=${quality[-1]:-"85%"}
+
+magick "$1" -strip -quality "$quality" "$output"
