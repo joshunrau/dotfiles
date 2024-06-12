@@ -22,17 +22,15 @@ setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
 setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
 
+# ALIASES
+source ~/.zsh/aliases.zsh
+
 # ACTIVATE PYENV
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 # ACTIVATE NVM
 source "$NVM_DIR/nvm.sh"
-
-# SOURCE ADDITIONAL CONFIG
-for file ($HOME/.zsh/*.zsh); do
-    source $file
-done
 
 # SOURCE THEME
 if [[ $ZSH_VERSION > 5.1 ]]; then
