@@ -1,0 +1,39 @@
+#!/usr/bin/env zsh
+
+git fetch --prune
+
+current_branch=$(git branch --show-current)
+local_branches=("${(@f)$(git branch --format='%(refname:short)')}")
+remote_branches=("${(@f)$(git branch -r | awk '{print $1}' | grep '^origin/*' | sd '^origin/*' '')}")
+
+branches_to_delete=()
+for branch in $local_branches; do
+  if ! (( $remote_branches[(Ie)$branch] )); then
+    branches_to_delete+=$branch
+  fi
+done
+
+if [[ -z $branches_to_delete ]]; then
+  echo "No branches to delete" && exit 0
+fi
+
+if ! (( $remote_branches[(Ie)$current_branch] )); then
+  echo "Error: Current branch does not exist on remote. Please change branches and try again."
+  exit 1
+fi
+
+echo "The following branches will be deleted:"
+for branch in $branches_to_delete; do
+  echo " - $branch"
+done
+
+read input\?"Would you like to continue? (y/N)? "
+if ! [[ $input = "y" || $input = "Y" ]]; then
+  exit 0
+fi
+
+for branch in $branches_to_delete; do
+  git branch -D "$branch"
+done
+
+echo "Done!"

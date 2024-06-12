@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-printf 'hello world\n'
