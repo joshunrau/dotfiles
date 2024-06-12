@@ -9,7 +9,7 @@ setopt PUSHD_SILENT         # Do not print the directory stack after pushd or po
 setopt CORRECT              # Spelling correction
 setopt EXTENDED_GLOB        # Use extended globbing syntax.
 
-source ~/zsh/plugins/bd.zsh
+source ~/.zsh/plugins/bd.zsh
 
 # ACTIVATE PYENV
 eval "$(pyenv init -)"
