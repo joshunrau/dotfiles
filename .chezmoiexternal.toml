@@ -13,28 +13,28 @@
     url = "https://github.com/nvm-sh/nvm/archive/master.tar.gz"
     stripComponents = 1
     refreshPeriod = "168h"
-[".zsh/powerlevel10k"]
-    type = "archive"
-    url = "https://github.com/romkatv/powerlevel10k/archive/master.tar.gz"
-    stripComponents = 1
-    refreshPeriod = "168h"
-[".zsh/zsh-autosuggestions"]
+[".zsh/plugins/zsh-autosuggestions"]
     type = "archive"
     url = "https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz"
     stripComponents = 1
     refreshPeriod = "168h"
-[".zsh/zsh-completions"]
+[".zsh/plugins/zsh-completions"]
     type = "archive"
     url = "https://github.com/zsh-users/zsh-completions/archive/master.tar.gz"
     stripComponents = 1
     refreshPeriod = "168h"
-[".zsh/zsh-history-substring-search"]
+[".zsh/plugins/zsh-history-substring-search"]
     type = "archive"
     url = "https://github.com/zsh-users/zsh-history-substring-search/archive/master.tar.gz"
     stripComponents = 1
     refreshPeriod = "168h"
-[".zsh/zsh-syntax-highlighting"]
+[".zsh/plugins/zsh-syntax-highlighting"]
     type = "archive"
     url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/master.tar.gz"
+    stripComponents = 1
+    refreshPeriod = "168h"
+[".zsh/themes/powerlevel10k"]
+    type = "archive"
+    url = "https://github.com/romkatv/powerlevel10k/archive/master.tar.gz"
     stripComponents = 1
     refreshPeriod = "168h"

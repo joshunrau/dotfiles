@@ -19,14 +19,14 @@ done
 
 # SOURCE THEME
 if [[ $ZSH_VERSION > 5.1 ]]; then
-    source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+    source ~/.zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
     source ~/.p10k.zsh
 fi
 
 # SOURCE 3RD PARTY PLUGINS
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
+source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 fpath=(~/.zsh/zsh-completions/src $fpath)
 
