@@ -1,0 +1,55 @@
+#!/usr/bin/env zsh
+
+# declare -a args
+# declare -A opts
+# typeset '@' 'opts'
+
+# zparseopts -D -E -F - a:=arg_val -arg:=arg_val f=flag -flag=flag \
+# 	F=foobar -foo=foobar B=foobar -bar=foobar || exit 1
+
+read -r -d '' VAR << EOM
+Usage: $(basename "$0").
+This is line 2.
+Line 3.
+EOM
+
+echo $funcstack
+echo ${funcstack[1]};
+printf "%s\n" "${funcstack[@]:1:1}"
+echo $VAR
+exit 0
+
+scriptname=$(basename "$0")
+local usage=(
+  "Usage: $(basename "$0") [options] <filename>"
+  "Arguments:"
+  "Options:"
+)
+
+
+zparseopts -D -E -F - \
+  h=help -help=help \
+  o:=output -output:=output \
+  w:=width -width:=width \
+  || exit 1
+
+help=${#help}
+output=${output[-1]}
+width=${width[-1]}
+
+if [ $help ]; then
+  echo $usage
+  return
+fi
+
+# [[ -z "$flag_help" ]] || { print -l $usage && return }
+
+# echo $help
+# echo $output
+# echo $width
+
+
+# # Get index of first end of options indicator
+# ((rmidx=$@[(i)(--|-)]))
+# set -- "${@[0,rmidx-1]}" "${@[rmidx+1,-1]}"
+echo $1
