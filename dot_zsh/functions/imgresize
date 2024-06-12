@@ -1,45 +1,33 @@
 #!/usr/bin/env zsh
 
-# declare -a args
-# declare -A opts
-# typeset '@' 'opts'
-
-# zparseopts -D -E -F - a:=arg_val -arg:=arg_val f=flag -flag=flag \
-# 	F=foobar -foo=foobar B=foobar -bar=foobar || exit 1
-
 read -r -d '' usage << EOM
 Usage: ${funcstack[1]} [options] <filename>
 
 Arguments:
-  filename: url of video to download
+  filename                the image to resize
 
 Options:
   -h, --help              display help for command
+  -o, --output            the output file (if not set, will overwrite the input file)
+  -w, --width             the updated width of the file in pixels or as a percentage (e.g., 100, 50%)
 EOM
 
-zparseopts -D -E -F - \
-  h=help -help=help \
-  o:=output -output:=output \
-  w:=width -width:=width \
-  || exit 1
+zparseopts -D -E -F - h=help -help=help o:=output -output:=output w:=width -width:=width || exit 1
 
 help=${#help}
-output=${output[-1]}
-width=${width[-1]}
-
-if [ $help ]; then
+if (( $help )); then
   echo $usage
   return
 fi
 
-# # [[ -z "$flag_help" ]] || { print -l $usage && return }
+if [[ -z "$1" ]]; then
+  echo "Error: must specify target file" && exit 1
+fi
 
-# # echo $help
-# # echo $output
-# # echo $width
+output=${output[-1]:-$1}
+width=${width[-1]}
+if [[ -z "$width" ]]; then
+  echo "Error: missing required option '--width'" && exit 1
+fi
 
-
-# # # Get index of first end of options indicator
-# # ((rmidx=$@[(i)(--|-)]))
-# # set -- "${@[0,rmidx-1]}" "${@[rmidx+1,-1]}"
-# echo $1
+magick $1 -quality 100 -resize $width $output
