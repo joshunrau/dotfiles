@@ -868,6 +868,6 @@ require('lazy').setup({
 
 vim.api.nvim_create_autocmd('ExitPre', {
   group = vim.api.nvim_create_augroup('Exit', { clear = true }),
-  command = "set guicursor=''",
+  command = 'set guicursor=a:ver90',
   desc = 'Reset cursor to default terminal style when exiting Neovim',
 })
