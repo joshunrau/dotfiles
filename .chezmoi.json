@@ -1,12 +1,4 @@
 {
-  "data": {
-    "packages": [
-      {
-        "brew": "bandwhich",
-        "pacman": "bandwhich"
-      }
-    ]
-  },
   "git": {
     "autoCommit": true,
     "autoPush": true
