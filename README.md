@@ -7,14 +7,14 @@ This repository hosts my personal dotfiles configuration, managed via chezmoi.
 ### Arch Linux
 
 ```sh
-pacman -S bandwhich bat chezmoi dust fd htmlq imagemagick jless libwebp lsd neovim p7zip procs ripgrep sd tokei xsel
+pacman -S chezmoi
 chezmoi init --apply --ssh joshunrau
 ```
 
 ### MacOS
 
 ```sh
-brew install bandwhich bash bat chezmoi dust fd gcc@13 htmlq imagemagick jless lsd neovim p7zip procs ripgrep sd tokei webp xsel xz
+brew install chezmoi
 chezmoi init --apply joshunrau
 ```
 
