@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+# Run the script whenever the list of packages changes
+# {{ include ".packages.json" | sha256sum }}
+
+echo "install script!"
+echo $(cat .packages.json)
+
