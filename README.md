@@ -14,7 +14,7 @@ chezmoi init --apply --ssh joshunrau
 ### MacOS
 
 ```sh
-brew install bandwhich bash bat chezmoi dust fd gcc@13 htmlq imagemagick jless lsd neovim p7zip procs sd tokei webp xsel xz
+brew install bandwhich bash bat chezmoi dust fd gcc@13 htmlq imagemagick jless lsd neovim p7zip procs ripgrep sd tokei webp xsel xz
 chezmoi init --apply joshunrau
 ```
 
