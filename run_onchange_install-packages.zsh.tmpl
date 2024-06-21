@@ -1,6 +1,26 @@
 #!/usr/bin/env zsh
-DATA={{ .packages }}
-echo $DATA
+
+{{ if eq .chezmoi.os "darwin" -}}
+package_manager=brew
+{{ else if (and (eq .chezmoi.os "linux__") (eq .chezmoi.osRelease.idLike "arch")) -}}
+package_manager=pacman
+{{ else if eq .chezmoi.os "linux" -}}
+echo "ERROR: Unsupported 'ID_LIKE' property '{{ .chezmoi.osRelease.idLike }}' for OS '{{ .chezmoi.osRelease.name }}'" >&2
+exit 1
+{{ else -}}
+echo "ERROR: Unsupported OS '{{ .chezmoi.os }}'"
+exit 1
+{{ end -}}
+
+
+if (( $+commands[brew] )); then
+  
+fi
+
+(( $+commands[program] )) 
+
+packages=( {{ .packages | jq ".[] | .brew" | join " " }} )
+echo $packages
 echo "install script!"
 
 
