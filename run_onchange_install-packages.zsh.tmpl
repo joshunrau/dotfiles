@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+set -euo pipefail
+
 if [ {{ .installPackages }} = false ]; then
   echo "Package installation disabled, skipping..."
   exit 0
@@ -8,10 +10,9 @@ fi
 {{- $packageManager := .packageManager }}
 {{- $filter := ".[] | .{}" | replace "{}" $packageManager  }}
 
-PACKAGE_MANAGER={{ $packageManager }}
-PACKAGE_INSTALL_COMMAND={{ .packageInstallCommand }}
+PACKAGE_MANAGER="{{ $packageManager }}"
+PACKAGE_INSTALL_COMMAND="{{ .packageInstallCommand }}"
 PACKAGES=({{ .packages | jq $filter | join " " }})
-
 
 if (( ! $+commands[$PACKAGE_MANAGER] )); then
   echo "ERROR: Missing expected package manager '$PACKAGE_MANAGER'"
@@ -26,4 +27,6 @@ for package in $PACKAGES; do
   eval $command
   echo "Done! Package '${package}' is installed"
 done
+
+echo "Success! Package installation script complete"
 
