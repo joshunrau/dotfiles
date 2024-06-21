@@ -7,7 +7,7 @@ This repository hosts my personal dotfiles configuration, managed via chezmoi.
 ### Arch Linux
 
 ```sh
-pacman -S chezmoi
+pacman -S chezmoi git zsh
 chezmoi init --apply --ssh joshunrau
 ```
 
