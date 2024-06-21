@@ -9,14 +9,21 @@ fi
 {{- $filter := ".[] | .{}" | replace "{}" $packageManager  }}
 
 PACKAGE_MANAGER={{ $packageManager }}
+PACKAGE_INSTALL_COMMAND={{ .packageInstallCommand }}
 PACKAGES=({{ .packages | jq $filter | join " " }})
+
 
 if (( ! $+commands[$PACKAGE_MANAGER] )); then
   echo "ERROR: Missing expected package manager '$PACKAGE_MANAGER'"
   exit 1
 fi
 
-for pkg in $PACKAGES; do
-  echo $pkg
+
+echo "Installing packages using '${PACKAGE_INSTALL_COMMAND} <package>'..."
+for package in $PACKAGES; do
+  command="${PACKAGE_INSTALL_COMMAND} ${package}"
+  echo "Checking if package '${package}' is installed..."
+  eval $command
+  echo "Done! Package '${package}' is installed"
 done
 

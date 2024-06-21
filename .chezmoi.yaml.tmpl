@@ -4,11 +4,11 @@
 {{- $packageInstallCommand := "" }}
 {{- if eq .chezmoi.os "darwin" }}
 {{-   $packageManager = "brew" }}
-{{-   $packageInstallCommand = "install" }}
+{{-   $packageInstallCommand = "brew install --quiet" }}
 {{- else if eq .chezmoi.os "linux" }}
 {{-   if (or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "archarm" )) }}
 {{-     $packageManager = "pacman" }}
-{{-     $packageInstallCommand = "-S" }}
+{{-     $packageInstallCommand = "pacman -S --quiet --noconfirm" }}
 {{-   else }}
 {{-     "ERROR: Unsupported Linux Distro '{}'\n" | replace "{}" .chezmoi.osRelease.name | writeToStdout }}
 {{-     exit 1 }}
