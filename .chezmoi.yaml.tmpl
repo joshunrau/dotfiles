@@ -1,5 +1,5 @@
 ---
-{{- $installPackages := promptBool "Install packages?" -}}
+{{- $installPackages := promptBool "Install packages (y/n)" -}}
 {{- $packageManager := "" }}
 {{- if eq .chezmoi.os "darwin" }}
 {{-   $packageManager = "brew" }}
@@ -14,7 +14,7 @@
 {{-   exit 1 }}
 {{- end }}
 data:
-  installPackages = {{- $installPackages -}}
+  installPackages = {{ $installPackages }}
   packageManager: {{ $packageManager | quote }}
 git:
   autoCommit: true
