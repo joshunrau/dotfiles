@@ -1,5 +1,10 @@
 #!/usr/bin/env zsh
 
+if [ {{ .installPackages }} = false ]; then
+  echo "Package installation disabled, skipping..."
+  exit 0
+fi
+
 {{- $packageManager := .packageManager }}
 {{- $filter := ".[] | .{}" | replace "{}" $packageManager  }}
 
@@ -11,8 +16,7 @@ if (( ! $+commands[$PACKAGE_MANAGER] )); then
   exit 1
 fi
 
-echo $PACKAGES
-echo $JQ_FILTER
-echo $PACKAGE_MANAGER
-
+for pkg in $PACKAGES; do
+  echo $pkg
+done
 
