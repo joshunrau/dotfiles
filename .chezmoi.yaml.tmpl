@@ -8,7 +8,7 @@
 {{- else if eq .chezmoi.os "linux" }}
 {{-   if (or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "archarm" )) }}
 {{-     $packageManager = "pacman" }}
-{{-     $packageInstallCommand = "-S"
+{{-     $packageInstallCommand = "-S" }}
 {{-   else }}
 {{-     "ERROR: Unsupported Linux Distro '{}'\n" | replace "{}" .chezmoi.osRelease.name | writeToStdout }}
 {{-     exit 1 }}
