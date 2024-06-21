@@ -4,7 +4,7 @@
 {{- $packageInstallCommand := "" }}
 {{- if eq .chezmoi.os "darwin" }}
 {{-   $packageManager = "brew" }}
-{{-   $packageInstallCommand = "install"
+{{-   $packageInstallCommand = "install" }}
 {{- else if eq .chezmoi.os "linux" }}
 {{-   if (or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "archarm" )) }}
 {{-     $packageManager = "pacman" }}
