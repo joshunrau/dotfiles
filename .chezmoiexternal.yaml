@@ -1,0 +1,41 @@
+---
+".nvm":
+  refreshPeriod: 168h
+  stripComponents: 1
+  type: archive
+  url: https://github.com/nvm-sh/nvm/archive/master.tar.gz
+".pyenv":
+  refreshPeriod: 168h
+  stripComponents: 1
+  type: archive
+  url: https://github.com/pyenv/pyenv/archive/master.tar.gz
+".pyenv/plugins/pyenv-virtualenv":
+  refreshPeriod: 168h
+  stripComponents: 1
+  type: archive
+  url: https://github.com/pyenv/pyenv-virtualenv/archive/master.tar.gz
+".zsh/plugins/zsh-autosuggestions":
+  refreshPeriod: 168h
+  stripComponents: 1
+  type: archive
+  url: https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz
+".zsh/plugins/zsh-completions":
+  refreshPeriod: 168h
+  stripComponents: 1
+  type: archive
+  url: https://github.com/zsh-users/zsh-completions/archive/master.tar.gz
+".zsh/plugins/zsh-history-substring-search":
+  refreshPeriod: 168h
+  stripComponents: 1
+  type: archive
+  url: https://github.com/zsh-users/zsh-history-substring-search/archive/master.tar.gz
+".zsh/plugins/zsh-syntax-highlighting":
+  refreshPeriod: 168h
+  stripComponents: 1
+  type: archive
+  url: https://github.com/zsh-users/zsh-syntax-highlighting/archive/master.tar.gz
+".zsh/themes/powerlevel10k":
+  refreshPeriod: 168h
+  stripComponents: 1
+  type: archive
+  url: https://github.com/romkatv/powerlevel10k/archive/master.tar.gz
