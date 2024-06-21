@@ -1,25 +1,18 @@
 #!/usr/bin/env zsh
 
-<<<<<<< HEAD
 {{- $packageManager := .packageManager }}
 {{- $filter := ".[] | .{}" | replace "{}" $packageManager  }}
 
 PACKAGE_MANAGER={{ $packageManager }}
 PACKAGES=({{ .packages | jq $filter | join " " }})
 
-=======
-PACKAGE_MANAGER={{- .packageManager }}
->>>>>>> 469611fa2a6f21866f393b2f41de91de40d1d719
 if (( ! $+commands[$PACKAGE_MANAGER] )); then
   echo "ERROR: Missing expected package manager '$PACKAGE_MANAGER'"
   exit 1
 fi
 
-<<<<<<< HEAD
 echo $PACKAGES
 echo $JQ_FILTER
 echo $PACKAGE_MANAGER
-=======
->>>>>>> 469611fa2a6f21866f393b2f41de91de40d1d719
 
 
