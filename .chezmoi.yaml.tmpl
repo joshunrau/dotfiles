@@ -1,6 +1,5 @@
 ---
-{{- $choices := list "desktop" "server" -}}
-{{- $hosttype := promptChoice "What type of host are you on" $choices -}}
+{{- $installPackages := promptBool "Install packages?" -}}
 {{- $packageManager := "" }}
 {{- if eq .chezmoi.os "darwin" }}
 {{-   $packageManager = "brew" }}
@@ -15,7 +14,7 @@
 {{-   exit 1 }}
 {{- end }}
 data:
-  hosttype = {{- $hosttype | quote -}}
+  installPackages = {{- $installPackages -}}
   packageManager: {{ $packageManager | quote }}
 git:
   autoCommit: true
