@@ -2,9 +2,9 @@
 
 {{ if eq .chezmoi.os "darwin" -}}
 package_manager=brew
-{{ else if (and (eq .chezmoi.os "linux__") (eq .chezmoi.osRelease.idLike "arch")) -}}
+{{ else if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "arch")) -}}
 package_manager=pacman
-{{ else if eq .chezmoi.os "linux__" -}}
+{{ else if eq .chezmoi.os "linux" -}}
 echo "ERROR: Unsupported 'ID_LIKE' property '{{ .chezmoi.osRelease.idLike }}' for OS '{{ .chezmoi.osRelease.name }}'" >&2
 exit 1
 {{ else -}}
@@ -12,12 +12,10 @@ echo "ERROR: Unsupported OS '{{ .chezmoi.os }}'"
 exit 1
 {{ end -}}
 
-
-if (( $+commands[brew] )); then
-  
+if (( ! $+commands[$package_manager] )); then
+  echo "ERROR: Missing expected package manager '$package_manager'"
+  exit 1
 fi
-
-(( $+commands[program] )) 
 
 packages=( {{ .packages | jq ".[] | .brew" | join " " }} )
 echo $packages
