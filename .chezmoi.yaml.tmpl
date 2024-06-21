@@ -2,13 +2,15 @@
 {{- $packageManager := "" }}
 {{- if eq .chezmoi.os "darwin" }}
 {{-   $packageManager = "brew" }}
-{{- else if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "arch")) }}
-{{-   $packageManager = "pacman" }}
 {{- else if eq .chezmoi.os "linux" }}
-{{-   "ERROR: Unsupported 'ID_LIKE' property '{0}' for OS '{1}'\n" | replace "{0}" .chezmoi.osRelease.idLike | replace "{1}"  .chezmoi.osRelease.name | writeToStdout }}
-{{-   exit 1 }}
+{{-   if (or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "archarm" )) }}
+{{-     $packageManager = "pacman" }}
+{{-   else }}
+{{-     "ERROR: Unsupported Linux Distro '{}'\n" | replace "{}" .chezmoi.osRelease.name | writeToStdout }}
+{{-     exit 1 }}
+{{-   end }}
 {{- else }}
-{{-   "ERROR: Unsupported OS '{0}'\n" | replace "{0}" .chezmoi.os | writeToStdout }}
+{{-   "ERROR: Unsupported OS '{}'\n" | replace "{}" .chezmoi.os | writeToStdout }}
 {{-   exit 1 }}
 {{- end }}
 data:
@@ -16,4 +18,3 @@ data:
 git:
   autoCommit: true
   autoPush: true
-
