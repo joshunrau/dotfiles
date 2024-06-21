@@ -14,7 +14,7 @@
 {{-   exit 1 }}
 {{- end }}
 data:
-  installPackages = {{ $installPackages }}
+  installPackages: {{ $installPackages }}
   packageManager: {{ $packageManager | quote }}
 git:
   autoCommit: true
