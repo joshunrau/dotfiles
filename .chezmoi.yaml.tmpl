@@ -6,8 +6,7 @@
 {{-   if (or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "archarm" )) }}
 {{-     $packageManager = "pacman" }}
 {{-   else }}
-{{-     "ERROR: Unsupported Linux Distro '{}'\n" | replace "{}" .chezmoi.osRelease.name | writeToStdout }}
-{{-     exit 1 }}
+{{-     "WARNING: Unsupported Linux Distro '{}'\n" | replace "{}" .chezmoi.osRelease.name | writeToStdout }}
 {{-   end }}
 {{- else }}
 {{-   "ERROR: Unsupported OS '{}'\n" | replace "{}" .chezmoi.os | writeToStdout }}

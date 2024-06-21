@@ -1,11 +1,4 @@
 ---
-{{ if eq .chezmoi.os "darwin" -}}
-packageManager: brew
-{{ else if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "arch")) -}}
-packageManager: pacman
-{{ else -}}
-packageManager: ~
-{{ end -}}
 packages:
 - brew: bandwhich
   pacman: bandwhich
@@ -45,4 +38,3 @@ packages:
   pacman: xsel
 - brew: xz
   pacman: xz
-
