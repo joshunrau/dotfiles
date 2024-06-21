@@ -1,14 +1,2 @@
 #!/usr/bin/env zsh
 
-
-PACKAGE_MANAGER={{- .packageManager -}}
-if (( ! $+commands[$PACKAGE_MANAGER] )); then
-  echo "ERROR: Missing expected package manager '$PACKAGE_MANAGER'"
-  exit 1
-fi
-
-packages=( {{ .packages | jq ".[] | .brew" | join " " }} )
-echo $packages
-echo "install script!"
-
-
