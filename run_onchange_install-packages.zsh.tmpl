@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
 
 {{ if eq .chezmoi.os "darwin" -}}
-package_manager=brew
+{{- $packageManager := "brew" -}}
 {{ else if (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "arch")) -}}
-package_manager=pacman
+{{- $packageManager := "pacman" -}}
 {{ else if eq .chezmoi.os "linux" -}}
 echo "ERROR: Unsupported 'ID_LIKE' property '{{ .chezmoi.osRelease.idLike }}' for OS '{{ .chezmoi.osRelease.name }}'" >&2
 exit 1
@@ -12,6 +12,7 @@ echo "ERROR: Unsupported OS '{{ .chezmoi.os }}'"
 exit 1
 {{ end -}}
 
+package_manager={{- $packageManager -}}
 if (( ! $+commands[$package_manager] )); then
   echo "ERROR: Missing expected package manager '$package_manager'"
   exit 1
