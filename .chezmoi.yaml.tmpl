@@ -7,7 +7,8 @@
 {{-   if (or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "archarm" )) }}
 {{-     $packageManager = "pacman" }}
 {{-   else }}
-{{-     "WARNING: Unsupported Linux Distro '{}'\n" | replace "{}" .chezmoi.osRelease.name | writeToStdout }}
+{{-     "ERROR: Unsupported Linux Distro '{}'\n" | replace "{}" .chezmoi.osRelease.name | writeToStdout }}
+{{-     exit 1 }}
 {{-   end }}
 {{- else }}
 {{-   "ERROR: Unsupported OS '{}'\n" | replace "{}" .chezmoi.os | writeToStdout }}
@@ -19,3 +20,4 @@ data:
 git:
   autoCommit: true
   autoPush: true
+
