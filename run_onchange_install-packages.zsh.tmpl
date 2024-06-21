@@ -1,3 +1,10 @@
 #!/usr/bin/env zsh
 
-echo hello
+PACKAGE_MANAGER={{- .packageManager -}}
+if (( ! $+commands[$PACKAGE_MANAGER] )); then
+  echo "ERROR: Missing expected package manager '$PACKAGE_MANAGER'"
+  exit 1
+fi
+
+
+
