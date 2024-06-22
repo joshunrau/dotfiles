@@ -12,8 +12,6 @@ setopt PUSHD_SILENT         # Do not print the directory stack after pushd or po
 setopt CORRECT              # Spelling correction
 setopt EXTENDED_GLOB        # Use extended globbing syntax.
 
-source ~/.zsh/plugins/bd.zsh
-
 # HISTORY
 setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
 setopt SHARE_HISTORY             # Share history between all sessions.
@@ -25,8 +23,15 @@ setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
 setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
 
+# SOURCE THEME
+if [[ $ZSH_VERSION > 5.1 ]]; then
+    source ~/.zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
+    source ~/.p10k.zsh
+fi
+
 # ALIASES
 source ~/.zsh/aliases.zsh
+source ~/.zsh/plugins/bd.zsh
 
 # ACTIVATE PYENV
 eval "$(pyenv init -)"
@@ -34,12 +39,6 @@ eval "$(pyenv virtualenv-init -)"
 
 # ACTIVATE NVM
 source "$NVM_DIR/nvm.sh"
-
-# SOURCE THEME
-if [[ $ZSH_VERSION > 5.1 ]]; then
-    source ~/.zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
-    source ~/.p10k.zsh
-fi
 
 # SOURCE 3RD PARTY PLUGINS
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
