@@ -38,3 +38,6 @@ packages:
   pacman: xsel
 - brew: xz
   pacman: xz
+- brew: zoxide
+  pacman: zoxide
+
