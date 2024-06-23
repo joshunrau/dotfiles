@@ -1,7 +1,0 @@
-[window]
-padding.x = 10
-padding.y = 10
-
-decorations = "Transparent"
-opacity = 0.8
-blur = true
