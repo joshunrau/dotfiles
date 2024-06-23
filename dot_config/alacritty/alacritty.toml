@@ -14,5 +14,5 @@ padding.x = 6
 padding.y = 6
 
 [cursor]
-style = { shapre = "Beam", blinking = "On" }
+style = { shape = "Beam", blinking = "On" }
 
