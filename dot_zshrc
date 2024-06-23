@@ -53,6 +53,9 @@ source "$NVM_DIR/nvm.sh"
 # ACTIVATE ZOXIDE AND ALIAS CD
 eval "$(zoxide init --cmd cd zsh)"
 
+# ACTIVATE FZF
+source <(fzf --zsh)
+
 # SOURCE 3RD PARTY PLUGINS
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
