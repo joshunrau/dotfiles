@@ -50,8 +50,8 @@ eval "$(pyenv virtualenv-init -)"
 # ACTIVATE NVM
 source "$NVM_DIR/nvm.sh"
 
-# ACTIVATE ZOXIDE
-eval "$(zoxide init zsh)"
+# ACTIVATE ZOXIDE AND ALIAS CD
+eval "$(zoxide init --cmd cd zsh)"
 
 # SOURCE 3RD PARTY PLUGINS
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
