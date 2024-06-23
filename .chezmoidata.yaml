@@ -10,6 +10,8 @@ packages:
   pacman: dust
 - brew: fd
   pacman: fd
+- brew: fzf
+  pacman: fzf
 - brew: gcc@13
   pacman: ~
 - brew: htmlq
