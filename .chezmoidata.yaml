@@ -32,6 +32,8 @@ packages:
   pacman: sd
 - brew: tokei
   pacman: tokei
+- brew: tmux
+  pacman: tmux
 - brew: webp
   pacman: libwebp
 - brew: xsel
