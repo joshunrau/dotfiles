@@ -5,3 +5,8 @@ opacity = 0.8
 padding.x = 10
 padding.y = 10
 
+option_as_alt = true
+
+[font]
+normal.family = "Meslo LGS NF"
+
