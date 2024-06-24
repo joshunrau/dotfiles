@@ -18,6 +18,12 @@ require('lazy').setup({
   require('plugins/which-key'),
   -- Fuzzy Finder (files, lsp, etc)
   require('plugins/telescope'),
+  -- LSP Configuration & Plugins
+  require('plugins/lspconfig'),
+  -- Autoformat
+  require('plugins/conform'),
+  -- Autocompletion
+  require('plugins/cmp'),
 }, {
   install = {
     colorscheme = {
