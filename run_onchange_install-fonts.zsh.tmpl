@@ -1,3 +1,12 @@
 #!/usr/bin/env zsh
 
 set -euo pipefail
+
+if [[ -z "$FONTS_DIR" ]]; then
+  echo "ERROR: Missing required environment variable" >&2 && exit 1
+elif [[ ! -d "$FONTS_DIR" ]]; then
+  mkdir -r "$FONTS_DIR"
+fi
+
+cd "$FONTS_DIR"
+ls
