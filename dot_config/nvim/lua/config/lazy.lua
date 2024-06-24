@@ -24,6 +24,10 @@ require('lazy').setup({
   require('plugins/conform'),
   -- Autocompletion
   require('plugins/cmp'),
+  -- Set color scheme
+  require('plugins/tokyonight'),
+  -- Highlight, edit, and navigate code
+  require('plugins/treesitter'),
 }, {
   install = {
     colorscheme = {
