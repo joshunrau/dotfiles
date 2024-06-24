@@ -1,4 +1,4 @@
-[tool.mypy]
+[mypy]
 allow_redefinition = true
 disallow_any_unimported = true
 implicit_reexport = false
