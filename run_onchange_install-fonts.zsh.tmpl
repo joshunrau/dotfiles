@@ -7,7 +7,7 @@ TARGET_DIR="$FONTS_DIR/MesloLGS_NF"
 if [[ -z "$FONTS_DIR" ]]; then
   echo "ERROR: Missing required environment variable" >&2 && exit 1
 elif [[ ! -d "$TARGET_DIR" ]]; then
-  mkdir -r "$TARGET_DIR"
+  mkdir -p "$TARGET_DIR"
 fi
 
 typeset -A FONTS=()
