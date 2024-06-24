@@ -14,7 +14,10 @@ require('lazy').setup({
   { 'numToStr/Comment.nvim', opts = {} },
   -- Adds git related signs to the gutter, as well as utilities for managing changes
   require('plugins/gitsigns'),
-
+  -- Useful plugin to show you pending keybinds
+  require('plugins/which-key'),
+  -- Fuzzy Finder (files, lsp, etc)
+  require('plugins/telescope'),
 }, {
   install = {
     colorscheme = {
