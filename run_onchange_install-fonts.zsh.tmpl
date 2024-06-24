@@ -17,6 +17,15 @@ FONTS["MesloLGS_NF_Italic.ttf"]="https://github.com/romkatv/powerlevel10k-media/
 FONTS["MesloLGS_NF_Bold_Italic.ttf"]="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
 
 cd "$TARGET_DIR"
+for filename url in ${(kv)FONTS}; do
+  if [[ -f "$filename" ]]; then
+    continue
+  fi
+  echo "Installing font '$filename'..."
+  curl curl -fsSL --output "$filename" "$url"
+  "echo "Done! Wrote file '$filename'"
+done
+
 
 
 
