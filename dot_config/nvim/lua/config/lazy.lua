@@ -8,11 +8,14 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
 require('lazy').setup({
-  spec = {
-    {
-      import = 'plugins',
-    },
-  },
+  -- Detect tabstop and shiftwidth automatically
+  'tpope/vim-sleuth',
+  --  Enable "gc" to comment visual regions/lines
+  { 'numToStr/Comment.nvim', opts = {} },
+  -- Adds git related signs to the gutter, as well as utilities for managing changes
+  require('plugins/gitsigns'),
+
+}, {
   install = {
     colorscheme = {
       'habamax',
@@ -20,7 +23,7 @@ require('lazy').setup({
   },
   checker = {
     enabled = true,
-    notify = true,
+    notify = false,
   },
   ui = {
     icons = {
