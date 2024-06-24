@@ -23,7 +23,7 @@ for filename url in ${(kv)FONTS}; do
   fi
   echo "Installing font '$filename'..."
   curl -fsSL --output "$filename" "$url"
-  "echo "Done! Wrote file '$filename'"
+  echo "Done! Wrote file '$filename'"
 done
 
 
