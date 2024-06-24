@@ -25,6 +25,13 @@ pacman -S chezmoi git zsh
 chezmoi init --apply --ssh joshunrau
 ```
 
+### Ubuntu 24.04
+
+```sh
+apt-get install zsh
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin
+```
+
 ## Update
 
 ```sh
