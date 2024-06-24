@@ -10,7 +10,9 @@
 {{-     $packageManager = "pacman" }}
 {{-     $packageInstallCommand = "pacman -S --quiet --noconfirm" }}
 {{-   else }}
-{{-     "WARNING: Unsupported Linux Distro '{}'\n" | replace "{}" .chezmoi.osRelease.name | writeToStdout }}
+{{-     "WARNING: Unsupported Linux Distro '{}'\nSetting package manager to brew..." | replace "{}" .chezmoi.osRelease.name | writeToStdout }}
+{{-     $packageManager = "brew" }}
+{{-     $packageInstallCommand = "brew install --quiet" }}
 {{-     exit 1 }}
 {{-   end }}
 {{- else }}
