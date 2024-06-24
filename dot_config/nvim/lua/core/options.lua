@@ -61,7 +61,7 @@ opt.tabstop = 2
 opt.termguicolors = true
 
 --- Decrease the time in milliseconds to wait for a mapped sequence to complete (displays which-key popup sooner)
-opt.timeoutlen = 300
+opt.timeoutlen = 1000
 
 -- Preserve undo history when writing a file
 opt.undofile = true
