@@ -2,7 +2,9 @@
 {{- $installPackages := promptBool "Install packages (y/n)" -}}
 {{- $packageManager := "" }}
 {{- $packageInstallCommand := "" }}
-{{- if eq .chezmoi.os "darwin" }}
+{{- if eq $installPackages false }}
+{{-   "Skipping package installation..." | writeToStdout }}
+{{- else if eq .chezmoi.os "darwin" }}
 {{-   $packageManager = "brew" }}
 {{-   $packageInstallCommand = "brew install --quiet" }}
 {{- else if eq .chezmoi.os "linux" }}
