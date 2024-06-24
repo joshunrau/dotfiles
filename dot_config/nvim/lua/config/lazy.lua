@@ -8,25 +8,11 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
 require('lazy').setup({
-  --  Enable "gc" to comment visual regions/lines
-  require('plugins/comment'),
-  -- Adds git related signs to the gutter, as well as utilities for managing changes
-  require('plugins/gitsigns'),
-  -- Useful plugin to show you pending keybinds
-  require('plugins/which-key'),
-  -- Fuzzy Finder (files, lsp, etc)
-  require('plugins/telescope'),
-  -- LSP Configuration & Plugins
-  require('plugins/lspconfig'),
-  -- Autoformat
-  require('plugins/conform'),
-  -- Autocompletion
-  require('plugins/cmp'),
-  -- Set color scheme
-  require('plugins/tokyonight'),
-  -- Highlight, edit, and navigate code
-  require('plugins/treesitter'),
-}, {
+  spec = {
+    {
+      import = 'plugins',
+    },
+  },
   install = {
     colorscheme = {
       'habamax',
@@ -54,3 +40,24 @@ require('lazy').setup({
     },
   },
 })
+
+-- {
+--   --  Enable "gc" to comment visual regions/lines
+--   require('plugins/comment'),
+--   -- Adds git related signs to the gutter, as well as utilities for managing changes
+--   require('plugins/gitsigns'),
+--   -- Useful plugin to show you pending keybinds
+--   require('plugins/which-key'),
+--   -- Fuzzy Finder (files, lsp, etc)
+--   require('plugins/telescope'),
+--   -- LSP Configuration & Plugins
+--   require('plugins/lspconfig'),
+--   -- Autoformat
+--   require('plugins/conform'),
+--   -- Autocompletion
+--   require('plugins/cmp'),
+--   -- Set color scheme
+--   require('plugins/tokyonight'),
+--   -- Highlight, edit, and navigate code
+--   require('plugins/treesitter'),
+-- }
