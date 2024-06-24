@@ -2,7 +2,7 @@
 
 # SET FONTS DIRECTORY
 {{- if eq .chezmoi.os "darwin" }}
-export FONTS_DIR="~/Library/Fonts"
+export FONTS_DIR=$(realpath ~/Library/Fonts)
 {{- else if eq .chezmoi.os "linux" }}
 export FONTS_DIR="~/.local/share/fonts"
 {{- end }}
