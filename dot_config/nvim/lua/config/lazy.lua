@@ -8,10 +8,8 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
 require('lazy').setup({
-  -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
   --  Enable "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  require('plugins/comment'),
   -- Adds git related signs to the gutter, as well as utilities for managing changes
   require('plugins/gitsigns'),
   -- Useful plugin to show you pending keybinds
