@@ -2,9 +2,9 @@
 
 # SET FONTS DIRECTORY
 {{- if eq .chezmoi.os "darwin" }}
-FONTS_DIR="~/Library/Fonts"
+export FONTS_DIR="~/Library/Fonts"
 {{- else if eq .chezmoi.os "linux" }}
-FONTS_DIR="~/.local/share/fonts"
+export FONTS_DIR="~/.local/share/fonts"
 {{- end }}
 
 # SET BASE DIRECTORY FOR USER FILES
