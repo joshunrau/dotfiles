@@ -25,24 +25,7 @@ pacman -S chezmoi git zsh
 chezmoi init --apply --ssh joshunrau
 ```
 
-### Other Linux (Tested on Ubuntu 24.04)
-
-First, install system dependencies and change the default shell to zsh:
-
-```sh
-apt-get install build-essential zsh
-chsh -s $(which zsh)
-```
-
-Next, install Homebrew for Linux as follows:
-
-```sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' > .zshrc.local
-source .zshrc.local
-```
-
-Now, install chezmoi:
+### Other Linux
 
 ```sh
 sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin init --apply joshunrau
