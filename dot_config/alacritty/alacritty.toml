@@ -10,10 +10,10 @@ normal.family = "MesloLGS NF"
 [window]
 blur = true
 decorations = "Full"
-opacity = 0.8
+opacity = 0.9
 option_as_alt = "Both"
-padding.x = 6
-padding.y = 6
+padding.x = 0
+padding.y = 0
 
 [cursor]
 style = { shape = "Beam", blinking = "On" }
