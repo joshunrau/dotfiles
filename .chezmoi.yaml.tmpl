@@ -13,7 +13,6 @@
 {{-     "WARNING: Unsupported Linux Distro '{}'\nSetting package manager to brew..." | replace "{}" .chezmoi.osRelease.name | writeToStdout }}
 {{-     $packageManager = "brew" }}
 {{-     $packageInstallCommand = "brew install --quiet" }}
-{{-     exit 1 }}
 {{-   end }}
 {{- else }}
 {{-   "ERROR: Unsupported OS '{}'\n" | replace "{}" .chezmoi.os | writeToStdout }}
