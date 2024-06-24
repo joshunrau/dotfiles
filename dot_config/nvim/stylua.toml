@@ -1,4 +1,4 @@
-call_parentheses = "None"
+call_parentheses = "Always"
 column_width = 160
 indent_type = "Spaces"
 indent_width = 2
