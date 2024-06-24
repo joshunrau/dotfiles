@@ -44,4 +44,3 @@ packages:
   pacman: xz
 - brew: zoxide
   pacman: zoxide
-
