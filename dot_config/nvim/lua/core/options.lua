@@ -1,59 +1,47 @@
--- [[ Setting options ]]
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
-
--- Make line numbers default
+-- Enable line numbers default
 vim.opt.number = true
+
+-- Use relative line numbers instead of absolute
 vim.opt.relativenumber = true
 
--- Enable mouse mode, can be useful for resizing splits for example!
+-- Enable mouse support in all modes
 vim.opt.mouse = 'a'
 
--- Don't show the mode, since it's already in the status line
+-- Don't show the mode on the last line, since it is already in the status line
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
 vim.opt.clipboard = 'unnamedplus'
 
--- Enable break indent
-vim.opt.breakindent = true
-
--- Save undo history
+-- Preserve undo history when writing a file
 vim.opt.undofile = true
 
--- Keep signcolumn on by default
+-- Always include a signcolumn (extra space on the left for information, e.g., breakpoints)
 vim.opt.signcolumn = 'yes'
 
--- Decrease update time
+-- Decreate how many many milliseconds to wait to write the swap file to disk, if nothing is typed
 vim.opt.updatetime = 250
 
--- Decrease mapped sequence wait time
--- Displays which-key popup sooner
+--- Decrease the time in milliseconds to wait for a mapped sequence to complete (displays which-key popup sooner)
 vim.opt.timeoutlen = 300
 
--- Configure how new splits should be opened
+-- Splitting a window will put the new window right of the current one
 vim.opt.splitright = true
+
+-- When on, splitting a window will put the new window right of the current one
 vim.opt.splitbelow = true
 
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
+-- Use special characters to denote tabs, trailing spaces, and non-breakable space characters (see vim.opt.listchars)
 vim.opt.list = true
+
+-- Strings to use to denote certain whitespace characters in list mode, see (vim.opt.list)
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
--- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
-
--- Show which line your cursor is on
+-- Highlight the text line of the cursor
 vim.opt.cursorline = true
 
--- Minimal number of screen lines to keep above and below the cursor. If you set it to a very large value (999) the cursor line will always be in the middle of the window (except a the start or end of the file
+-- Set a high value for the minimal number of screen lines above and below the cursor to ensure it stays centered in the window, except at the file's start or end.
 vim.opt.scrolloff = 999
 
--- Do not wrap text
+-- Disable text wrapping
 vim.opt.wrap = false
-
--- vim: ts=2 sts=2 sw=2 et
