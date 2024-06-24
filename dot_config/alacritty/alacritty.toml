@@ -12,8 +12,8 @@ blur = true
 decorations = "Full"
 opacity = 0.9
 option_as_alt = "Both"
-padding.x = 0
-padding.y = 0
+padding.x = 2
+padding.y = 2
 
 [cursor]
 style = { shape = "Beam", blinking = "On" }
