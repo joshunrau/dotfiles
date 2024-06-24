@@ -2,9 +2,7 @@
 {{- $installPackages := promptBool "Install packages (y/n)" -}}
 {{- $packageManager := "" }}
 {{- $packageInstallCommand := "" }}
-{{- if eq $installPackages false }}
-{{-   "Skipping package installation..." | writeToStdout }}
-{{- else if eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" }}
 {{-   $packageManager = "brew" }}
 {{-   $packageInstallCommand = "brew install --quiet" }}
 {{- else if eq .chezmoi.os "linux" }}
@@ -12,7 +10,7 @@
 {{-     $packageManager = "pacman" }}
 {{-     $packageInstallCommand = "pacman -S --quiet --noconfirm" }}
 {{-   else }}
-{{-     "ERROR: Unsupported Linux Distro '{}'\n" | replace "{}" .chezmoi.osRelease.name | writeToStdout }}
+{{-     "WARNING: Unsupported Linux Distro '{}'\n" | replace "{}" .chezmoi.osRelease.name | writeToStdout }}
 {{-     exit 1 }}
 {{-   end }}
 {{- else }}
