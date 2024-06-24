@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+#
+# Script to sort neovim options, where options are newline-delineated with optional one-line comment
+# TODO: Rewrite this in Lua and implement it directly in neovim
+#
+### Example ###
+# -- Option A
+# vim.opt.a = ''
+#
+# -- Option B
+# vim.opt.b = ''
+
+import os
+import sys
+
+from argparse import ArgumentParser
+
+
+parser = ArgumentParser(prog='sort-nvim-opts')
+parser.add_argument('filename', type=str)
+args = parser.parse_args()
+
+filename: str = args.filename
+if not os.path.exists(filename):
+    raise FileNotFoundError(filename)
+elif not os.path.isfile(filename):
+    raise RecursionError(f'Not a file: {filename}')
+
+with open(filename, 'r') as file:
+    content = file.read()
+
+groups: list[tuple[str, str]] = []
+for group in content.split('\n\n'):
+    lines = group.splitlines()
+    if not (len(lines) == 2 and lines[0].startswith('--') and lines[1].startswith('vim.opt')):
+        line_number = content.splitlines().index(lines[0]) + 1
+        print(f'ERROR: Invalid content for group beginning on line {line_number}:', file=sys.stderr)
+        print(group, file=sys.stderr)
+        exit(1)
+    groups.append((lines[0], lines[1]))
+
+content = '\n\n'.join(['\n'.join(lines) for lines in sorted(groups, key=lambda lines: lines[1])])
+if not content.endswith('\n'):
+    content += '\n'
+
+with open(filename, 'w') as file:
+    file.write(content)
+
+print('Done!')
