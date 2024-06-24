@@ -1,6 +1,4 @@
 -- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -8,8 +6,8 @@ vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 
 require('core.options')
-
 require('core.keymaps')
+require('core.autocmds')
 
 -- [[ Basic Keymaps ]]
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -20,11 +18,3 @@ require('lazy-plugins')
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
--- CUSTOM
-
-vim.api.nvim_create_autocmd('ExitPre', {
-  group = vim.api.nvim_create_augroup('Exit', { clear = true }),
-  command = 'set guicursor=a:ver90',
-  desc = 'Reset cursor to default terminal style when exiting Neovim',
-})

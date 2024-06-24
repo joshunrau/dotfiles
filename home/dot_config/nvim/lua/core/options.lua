@@ -1,3 +1,6 @@
+-- When there is a previous search pattern, highlight all its matches
+vim.opt.hlsearch = true
+
 -- When creating a new line, copy the indentation from previous line
 vim.opt.autoindent = true
 
