@@ -1,0 +1,104 @@
+#!/usr/bin/env python
+
+import json
+import os
+import subprocess
+import sys
+import traceback
+
+from argparse import ArgumentParser
+from pathlib import Path
+from typing import cast, TypedDict
+
+MUSIC_FILE_EXTENSIONS = [".mp3"]
+
+
+class Tags(TypedDict):
+    title: str
+    artist: str
+    album: str
+
+
+def parse_tags(filename: Path) -> Tags:
+    result = subprocess.run(
+        f'ffprobe -loglevel error -show_entries stream_tags:format_tags -of json "{filename}"',
+        capture_output=True,
+        shell=True,
+        text=True,
+    )
+
+    if result.returncode != 0:
+        print(result.stderr, file=sys.stderr)
+        exit(result.returncode)
+
+    data = json.loads(result.stdout)
+    try:
+        tags = data["format"]["tags"]
+        if not isinstance(tags, dict):
+            raise TypeError("Tags is not a dictionary")
+        for key in ["title", "artist", "album"]:
+            if not isinstance(tags.get(key), str):
+                raise KeyError(key)
+        return cast(Tags, tags)
+    except (KeyError, TypeError) as err:
+        traceback.print_exception(err, file=sys.stderr)
+        print(
+            "The above error occured while reading the following data:\n",
+            data,
+            file=sys.stderr,
+        )
+        print(
+            f"ERROR: Unexpected ffprobe metadata for file '{filename}'",
+            file=sys.stderr,
+        )
+        exit(1)
+
+
+def main() -> None:
+    parser = ArgumentParser(prog="jellyfin-organize-music")
+    parser.add_argument("target", type=Path)
+    parser.add_argument(
+        "--rename",
+        action="store_true",
+        help="Automatically rename invalid filepaths",
+        required=False,
+        default=False,
+    )
+    args = parser.parse_args()
+
+    args = parser.parse_args()
+    rename: bool = bool(args.rename)
+    target: Path = args.target.resolve()
+
+    if not target.is_dir():
+        raise NotADirectoryError(target)
+
+    for filename in os.listdir(target):
+        if not any([filename.endswith(ext) for ext in MUSIC_FILE_EXTENSIONS]):
+            continue
+        filepath = target.joinpath(filename)
+        if "$" in str(filepath):
+            if not rename:
+                raise ValueError(f"Invalid filename '{filename}': must not contain '$'")
+            print(f"Renaming file: {filepath}")
+            filepath = filepath.rename(str(filepath).replace("$", ""))
+            print(f"Done! Updated path: {filepath}")
+        
+
+        tags = parse_tags(filepath)
+        artist = tags["artist"].replace('/', ', ')
+        artist_dir = target.joinpath(artist)
+        if not artist_dir.is_dir():
+            artist_dir.mkdir()
+        
+        album = tags["album"].replace('/', ', ')
+        album_dir = artist_dir.joinpath(album)
+        if not album_dir.is_dir():
+            album_dir.mkdir()
+        
+        filepath.rename(album_dir.joinpath(filename))
+
+        # print(filename, tags)
+
+
+main()
