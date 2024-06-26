@@ -2,6 +2,11 @@
 
 set -euo pipefail
 
+if [ {{ .installFonts }} = false ]; then
+  echo "Font installation disabled, skipping..."
+  exit 0
+fi
+
 TARGET_DIR="$FONTS_DIR/MesloLGS_NF"
 
 if [[ -z "$FONTS_DIR" ]]; then
