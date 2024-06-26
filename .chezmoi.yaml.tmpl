@@ -1,6 +1,6 @@
 ---
-{{- $installFonts := promptBool "Install fonts (y/n)" -}}
-{{- $installPackages := promptBool "Install packages (y/n)" -}}
+{{- $installFonts := promptBool "Install fonts (y/n)" }}
+{{- $installPackages := promptBool "Install packages (y/n)" }}
 {{- $packageManager := "" }}
 {{- $packageInstallCommand := "" }}
 {{- if eq .chezmoi.os "darwin" }}
