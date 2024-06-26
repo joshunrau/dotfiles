@@ -1,4 +1,5 @@
 ---
+{{- $installFonts := promptBool "Install fonts (y/n)" -}}
 {{- $installPackages := promptBool "Install packages (y/n)" -}}
 {{- $packageManager := "" }}
 {{- $packageInstallCommand := "" }}
@@ -19,6 +20,7 @@
 {{-   exit 1 }}
 {{- end }}
 data:
+  installFonts: {{ $installFonts }}
   installPackages: {{ $installPackages }}
   packageInstallCommand: {{ $packageInstallCommand | quote }}
   packageManager: {{ $packageManager | quote }}
