@@ -1,0 +1,47 @@
+#!/usr/bin/env python
+
+import subprocess
+
+from argparse import ArgumentParser, Namespace
+from pathlib import Path
+
+
+def cmd(args: list[str]) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(args, check=True, text=True)
+
+
+def optimize(args: Namespace) -> None:
+    cmd(['magick', args.target, '-strip', '-quality', args.quality, args.output or args.target])
+
+
+def resize(args: Namespace) -> None:
+    cmd(['magick', args.target, '-quality', '100', '-resize', args.width, args.output or args.target])
+
+
+def size(args: Namespace) -> None:
+    cmd(['identify', '-format', '%wx%h\n', args.target])
+
+
+parser = ArgumentParser(prog='img', description='Simplified wrappers around ImageMagick commands')
+subparsers = parser.add_subparsers(help='subcommand help', required=True)
+
+optimize_parser = subparsers.add_parser('optimize', help='optimize an image')
+optimize_parser.add_argument('target', type=Path)
+optimize_parser.add_argument('-o', '--output', help='the output file (if not set, will overwrite the input file)')
+optimize_parser.add_argument('-q', '--quality', help='the quality of the image (0-100%, default=85%)', default='85%')
+optimize_parser.set_defaults(fn=optimize)
+
+resize_parser = subparsers.add_parser('resize', help='resize an image')
+resize_parser.add_argument('target', type=Path)
+resize_parser.add_argument('-o', '--output', help='the output file (if not set, will overwrite the input file)')
+resize_parser.add_argument(
+    '-w', '--width', help='the updated width in pixels or as a percentage (e.g., 100, 50%)', required=True
+)
+resize_parser.set_defaults(fn=resize)
+
+size_parser = subparsers.add_parser('size', help='determine the size of an image (width x height)')
+size_parser.add_argument('target', type=Path)
+size_parser.set_defaults(fn=size)
+
+args = parser.parse_args()
+args.fn(args)
