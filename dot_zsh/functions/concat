@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+echo "$(awk '{print $1}')${1}"
+
