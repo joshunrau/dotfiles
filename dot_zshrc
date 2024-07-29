@@ -66,4 +66,4 @@ autoload -U compinit
 compinit
 
 # SOURCE ANY MACHINE-SPECIFIC CONFIG
-[[ -f ".zshrc.local" ]] && source .zshrc.local
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
