@@ -159,6 +159,7 @@ return {
         astro = {},
         bashls = {},
         cssls = {},
+        eslint-lsp = {},
         html = {},
         jsonls = {},
         lua_ls = {},
