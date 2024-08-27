@@ -6,6 +6,8 @@ packages:
   pacman: ~
 - brew: bat
   pacman: bat
+- brew: difftastic
+  pacman: difftastic
 - brew: dust
   pacman: dust
 - brew: fd
