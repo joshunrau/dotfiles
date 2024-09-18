@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+gh cache list --json id | jq '.[] .id' | xargs -I {} gh cache delete {}
