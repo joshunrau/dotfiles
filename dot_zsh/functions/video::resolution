@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+if [[ -z "$1" ]]; then
+  echo "Error: must specify target file"
+  exit 1
+fi
+
+ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$1"

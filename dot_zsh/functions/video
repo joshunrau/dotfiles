@@ -7,10 +7,10 @@ case "$CMD" in
   info)
     video::info "$@"
     ;;
-  optimize)
-    video::optimize "$@"
+  resolution)
+    video::resolution "$@"
     ;;
   *)
-    echo "Usage: $0 {info}"
+    echo "Usage: $0 {info,resolution}"
     ;;
 esac
