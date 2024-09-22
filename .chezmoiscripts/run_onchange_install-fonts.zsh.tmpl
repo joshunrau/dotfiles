@@ -7,11 +7,16 @@ if [ {{ .installFonts }} = false ]; then
   exit 0
 fi
 
+# SET FONTS DIRECTORY
+{{- if eq .chezmoi.os "darwin" }}
+FONTS_DIR=$(realpath ~/Library/Fonts)
+{{- else if eq .chezmoi.os "linux" }}
+FONTS_DIR="~/.local/share/fonts"
+{{- end }}
+
 TARGET_DIR="$FONTS_DIR/MesloLGS_NF"
 
-if [[ -z "$FONTS_DIR" ]]; then
-  echo "ERROR: Missing required environment variable" >&2 && exit 1
-elif [[ ! -d "$TARGET_DIR" ]]; then
+if [[ ! -d "$TARGET_DIR" ]]; then
   mkdir -p "$TARGET_DIR"
 fi
 
@@ -30,7 +35,4 @@ for filename url in ${(kv)FONTS}; do
   curl -fsSL --output "$filename" "$url"
   echo "Done! Wrote file '$filename'"
 done
-
-
-
 

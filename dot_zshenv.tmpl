@@ -1,12 +1,5 @@
 #!/usr/bin/env zsh
 
-# SET FONTS DIRECTORY
-{{- if eq .chezmoi.os "darwin" }}
-export FONTS_DIR=$(realpath ~/Library/Fonts)
-{{- else if eq .chezmoi.os "linux" }}
-export FONTS_DIR="~/.local/share/fonts"
-{{- end }}
-
 # SET BASE DIRECTORY FOR USER FILES
 export LOCAL_DIR="$HOME/.local"
 
