@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+if [[ -z "$1" ]]; then
+  echo "Error: must specify target file"
+  exit 1
+fi
+
+output="$(openssl rand -hex 16).mp4"
+ffmpeg -i "$1" -vcodec libx265 -crf 28 "$output"
+rm "$1"
+mv "$output" "$1"
