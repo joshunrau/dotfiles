@@ -45,6 +45,11 @@ eval "$(pyenv virtualenv-init -)"
 # ACTIVATE NVM
 source "$NVM_DIR/nvm.sh"
 
+# RUST
+if [ -d "$CARGO_HOME" ]; then
+  source "$CARGO_HOME/env"
+fi
+
 # ACTIVATE ZOXIDE AND ALIAS CD
 eval "$(zoxide init --cmd cd zsh)"
 
