@@ -1,6 +1,14 @@
 #!/usr/bin/env zsh
 
 CMD="$1"
+
+
+if [ -z $CMD ]; then
+  echo "Error: No command specified"
+  echo "$USAGE"
+  return
+fi
+
 shift
 
 case "$CMD" in
@@ -14,6 +22,7 @@ case "$CMD" in
     video::resolution "$@"
     ;;
   *)
-    echo "Usage: $0 {info,optimize,resolution}"
+    echo "Error: Invalid command specified"
+    echo "$USAGE"
     ;;
 esac

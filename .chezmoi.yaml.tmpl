@@ -1,24 +1,23 @@
 ---
-{{- $installFonts := promptBool "Install fonts (y/n)" }}
-{{- $installPackages := promptBool "Install packages (y/n)" }}
-{{- $packageManager := "" }}
-{{- $packageInstallCommand := "" }}
-{{- if eq .chezmoi.os "darwin" }}
-{{-   $packageManager = "brew" }}
-{{-   $packageInstallCommand = "brew install --quiet" }}
-{{- else if eq .chezmoi.os "linux" }}
-{{-   if (or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "archarm" )) }}
-{{-     $packageManager = "pacman" }}
-{{-     $packageInstallCommand = "pacman -S --quiet --noconfirm" }}
-{{-   else }}
-{{-     "WARNING: Unsupported Linux Distro '{}'\nSetting package manager to brew..." | replace "{}" .chezmoi.osRelease.name | writeToStdout }}
-{{-     $packageManager = "brew" }}
-{{-     $packageInstallCommand = "brew install --quiet" }}
-{{-   end }}
-{{- else }}
-{{-   "ERROR: Unsupported OS '{}'\n" | replace "{}" .chezmoi.os | writeToStdout }}
-{{-   exit 1 }}
-{{- end }}
+# {{- $installFonts := promptBool "Install fonts (y/n)" }}
+# {{- $installPackages := promptBool "Install packages (y/n)" }}
+# {{- $packageManager := "" }}
+# {{- $packageInstallCommand := "" }}
+# {{- if eq .chezmoi.os "darwin" }}
+# {{-   $packageManager = "brew" }}
+# {{-   $packageInstallCommand = "brew install --quiet" }}
+# {{- else if eq .chezmoi.os "linux" }}
+# {{-   if (or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "archarm" )) }}
+# {{-     $packageManager = "pacman" }}
+# {{-     $packageInstallCommand = "pacman -S --quiet --noconfirm" }}
+# {{-   else }}
+# {{-     "ERROR: Unsupported Linux Distro '{}'\n" | replace "{}" .chezmoi.osRelease.name | writeToStdout }}
+# {{-     exit 1 }}
+# {{-   end }}
+# {{- else }}
+# {{-   "ERROR: Unsupported OS '{}'\n" | replace "{}" .chezmoi.os | writeToStdout }}
+# {{-   exit 1 }}
+# {{- end }}
 data:
   installFonts: {{ $installFonts }}
   installPackages: {{ $installPackages }}
@@ -27,4 +26,3 @@ data:
 git:
   autoCommit: true
   autoPush: true
-

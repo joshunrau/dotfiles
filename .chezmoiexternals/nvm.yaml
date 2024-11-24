@@ -1,0 +1,6 @@
+---
+".nvm":
+  refreshPeriod: 168h
+  stripComponents: 1
+  type: archive
+  url: https://github.com/nvm-sh/nvm/archive/master.tar.gz

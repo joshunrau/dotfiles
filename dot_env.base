@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# RUST
+export CARGO_HOME="$HOME/.cargo"
+export RUSTUP_HOME="$HOME/.rustup"
+
+# GO
+export GOPATH="$HOME/.go"

@@ -1,0 +1,11 @@
+---
+".pyenv":
+  refreshPeriod: 168h
+  stripComponents: 1
+  type: archive
+  url: https://github.com/pyenv/pyenv/archive/master.tar.gz
+".pyenv/plugins/pyenv-virtualenv":
+  refreshPeriod: 168h
+  stripComponents: 1
+  type: archive
+  url: https://github.com/pyenv/pyenv-virtualenv/archive/master.tar.gz

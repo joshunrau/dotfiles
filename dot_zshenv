@@ -1,18 +1,12 @@
 #!/usr/bin/env zsh
 
+source "$HOME/.env.base"
+
 # SET BASE DIRECTORY FOR USER FILES
 export LOCAL_DIR="$HOME/.local"
 
 # CONFIGURE PATH FOR LOCAL BINARIES
 export PATH="$LOCAL_DIR/bin:$PATH"
-
-# DENO
-export PATH="$HOME/.deno/bin:$PATH"
-
-# RUST
-export CARGO_HOME="$HOME/.cargo"
-export RUSTUP_HOME="$HOME/.rustup"
-[[ -d $CARGO_HOME ]] && . "$CARGO_HOME/env"
 
 # PYENV
 export PYENV_ROOT="$HOME/.pyenv"
@@ -24,9 +18,6 @@ export PIPENV_VENV_IN_PROJECT=1
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
-
-# GO
-export GOPATH="$HOME/.go"
 
 # OTHER USER CONFIG
 export EDITOR=nvim
