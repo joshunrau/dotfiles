@@ -7,6 +7,6 @@ if [ -n "$nvmrc_path" ]; then
   local nvmrc_node_version
   nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
   if [ "$nvmrc_node_version" != "$(nvm version)" ]; then
-    nvm use
+    nvm use --silent
   fi
 fi
