@@ -134,6 +134,7 @@ def get_video_info(filepath: Path) -> VideoInfo:
 
 def optimize_video(video_info: VideoInfo) -> None:
     input_file = video_info['filepath']
+    log(f'Optimizing video: {input_file}')
     input_size = os.path.getsize(input_file)
     tmp_dir = mkdtemp()
     log(f'Created directory: {tmp_dir}', level='VERBOSE')
@@ -148,16 +149,16 @@ def optimize_video(video_info: VideoInfo) -> None:
         output_size = os.path.getsize(output_file)
         if output_size == 0:
             raise RuntimeError(f'Output file is empty: {output_file}')
+
+        os.remove(input_file)
+        shutil.move(output_file, input_file)
+
         diff = round(((output_size - input_size) / input_size) * 100, 1)
-
-        reduction: str
         if output_size > input_size:
-            log('WARNING: Output file size exceeds input file size', level='WARNING')
-            reduction = f'+{diff}%'
+            log(f'WARNING: Output file size exceeds input file size (+{diff}%)', level='WARNING')
         else:
-            reduction = f'{diff}%'
+            log(f'Done! Output filesize: {format_size(output_size)} ({diff}%)')
 
-        log(f'Output filesize: {format_size(output_size)} ({reduction})')
     except Exception as err:
         raise RuntimeError(f'Failed to optimize video: {input_file}') from err
     finally:
@@ -181,9 +182,9 @@ def main() -> None:
     log(*[' ' * 4 + f'{video['filepath']}' for video in videos_to_optimize], level='VERBOSE')
 
     for index, video in enumerate(videos_to_optimize):
-        log(f'\nOptimizing video {index + 1}/{len(videos_to_optimize)}: {video['filepath']}')
+        log(f'{'-' * 5} VIDEO {index + 1}/{len(videos_to_optimize)} {'-' * 5}')
         optimize_video(video)
-        log('Done!')
+
 
 
 if __name__ == '__main__':
