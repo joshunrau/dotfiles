@@ -1,0 +1,191 @@
+#!/usr/bin/env python
+#
+# TODO - Add support for optimizing music
+# TODO - Test if video encoded on Linux with NVIDIA GPU is more performant on Jellyfin server
+
+from __future__ import annotations
+
+import json
+import os
+import sys
+
+from argparse import ArgumentParser
+from pathlib import Path
+import shutil
+from subprocess import CalledProcessError, run
+from tempfile import mkdtemp
+from typing import Any, Literal, TypedDict
+
+
+IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp']
+VIDEO_EXTENSIONS = ['.mp4']
+
+ARGS: Args
+
+Encoding = Literal['H.264', 'H.265', 'UNKNOWN']
+LogLevel = Literal['ERROR', 'WARNING', 'LOG', 'VERBOSE']
+
+
+class Args(TypedDict):
+    target: Path
+    verbose: bool
+
+
+class VideoStream(TypedDict):
+    codec_name: str
+    codec_long_name: str
+    codec_type: Literal['audio', 'video']
+
+
+class VideoInfo(TypedDict):
+    encoding: Encoding
+    filepath: Path
+
+
+def parse_args() -> Args:
+    parser = ArgumentParser(prog='optimize-media')
+    parser.add_argument('target', type=Path)
+    parser.add_argument('--verbose', action='store_true')
+
+    args = parser.parse_args()
+    target: Path = args.target.resolve()
+
+    if not target.is_dir():
+        raise NotADirectoryError(target)
+
+    return {'target': target, 'verbose': args.verbose}
+
+
+def log(*values: object, level: LogLevel = 'LOG') -> None:
+    if level == 'ERROR':
+        print(*values, file=sys.stderr)
+    elif level == 'WARNING':
+        print(*values, file=sys.stderr)
+    elif level == 'LOG':
+        print(*values)
+    elif level == 'VERBOSE' and ARGS['verbose']:
+        print(*values)
+
+
+def format_size(size: float) -> str:
+    for unit in ('Bytes', 'KB', 'MB', 'GB', 'TB'):
+        if abs(size) < 1024.0:
+            return f'{size:3.1f}{unit}'
+        size /= 1024.0
+    return f'{size:.1f}PB'
+
+
+def get_video_stream(streams: list[dict[str, Any]]) -> VideoStream | None:
+    for stream in streams:
+        if not isinstance(stream, dict):
+            raise ValueError(f'Not a dict: {stream}')
+        codec_type = stream.get('codec_type')
+        if codec_type != 'video':
+            continue
+        codec_name = stream.get('codec_name')
+        codec_long_name = stream.get('codec_long_name')
+        if not isinstance(codec_name, str):
+            raise ValueError(f"Unexpected value for codec_name '{codec_name}': expected string")
+        elif not isinstance(codec_long_name, str):
+            raise ValueError(f"Unexpected value for codec_long_name '{codec_long_name}': expected string")
+        return {'codec_name': codec_name, 'codec_long_name': codec_long_name, 'codec_type': codec_type}
+    return None
+
+
+def get_video_info(filepath: Path) -> VideoInfo:
+    cmd = f'ffprobe -v quiet -print_format json -show_streams {filepath}'
+    result = run(cmd, capture_output=True, shell=True)
+    try:
+        try:
+            result.check_returncode()
+        except CalledProcessError as err:
+            if result.stderr:
+                log(result.stderr, level='ERROR')
+            raise err
+
+        output = json.loads(result.stdout)
+
+        if not isinstance(output, dict):
+            log(f'Command Output: {output}', level='ERROR')
+            raise ValueError(f"Unexpected output for command '{cmd}': expected dict")
+
+        streams = output.get('streams')
+        if not isinstance(streams, list):
+            log(f'Streams: {streams}', level='ERROR')
+            raise ValueError('Unexpected value for streams: expected list')
+
+        stream = get_video_stream(streams)
+        if stream is None:
+            log(f'Streams: {streams}', level='ERROR')
+            raise RuntimeError('Failed to find video stream')
+
+        encoding: Encoding
+        if stream['codec_name'] == 'h264':
+            encoding = 'H.264'
+        elif stream['codec_name'] == 'hevc':
+            encoding = 'H.265'
+        else:
+            encoding = 'UNKNOWN'
+        return {'encoding': encoding, 'filepath': filepath}
+
+    except Exception as err:
+        raise RuntimeError(f'Failed to get video info for file {filepath}') from err
+
+
+def optimize_video(video_info: VideoInfo) -> None:
+    input_file = video_info['filepath']
+    input_size = os.path.getsize(input_file)
+    tmp_dir = mkdtemp()
+    log(f'Created directory: {tmp_dir}', level='VERBOSE')
+    try:
+        output_file = os.path.join(tmp_dir, 'output.mp4')
+        cmd = f'ffmpeg -i "{input_file}" -preset fast -vcodec libx265 -crf 28 -tag:v hvc1 "{output_file}"'
+        run(cmd, capture_output=True, shell=True)
+        if not os.path.isfile(output_file):
+            raise FileNotFoundError(f'Expected file to exist: {output_file}')
+        log(f'Created file: {output_file}', level='VERBOSE')
+
+        output_size = os.path.getsize(output_file)
+        if output_size == 0:
+            raise RuntimeError(f'Output file is empty: {output_file}')
+        diff = round(((output_size - input_size) / input_size) * 100, 1)
+
+        reduction: str
+        if output_size > input_size:
+            log('WARNING: Output file size exceeds input file size', level='WARNING')
+            reduction = f'+{diff}%'
+        else:
+            reduction = f'{diff}%'
+
+        log(f'Output filesize: {format_size(output_size)} ({reduction})')
+    except Exception as err:
+        raise RuntimeError(f'Failed to optimize video: {input_file}') from err
+    finally:
+        if os.path.isdir(tmp_dir):
+            shutil.rmtree(tmp_dir)
+
+
+def main() -> None:
+    log(f'Optimizing media in target directory: {ARGS['target']}')
+    for root, _, files in os.walk(ARGS['target']):
+        videos_to_optimize: list[VideoInfo] = []
+        for filename in files:
+            filepath = Path(os.path.join(ARGS['target'], root, filename))
+            if filepath.suffix in VIDEO_EXTENSIONS:
+                log(f'Found video: {filepath}', level='VERBOSE')
+                video_info = get_video_info(filepath)
+                if video_info['encoding'] != 'H.265':
+                    videos_to_optimize.append(video_info)
+
+    log(f'Found {len(videos_to_optimize)} video(s) to optimize')
+    log(*[' ' * 4 + f'{video['filepath']}' for video in videos_to_optimize], level='VERBOSE')
+
+    for index, video in enumerate(videos_to_optimize):
+        log(f'\nOptimizing video {index + 1}/{len(videos_to_optimize)}: {video['filepath']}')
+        optimize_video(video)
+        log('Done!')
+
+
+if __name__ == '__main__':
+    ARGS = parse_args()
+    main()
