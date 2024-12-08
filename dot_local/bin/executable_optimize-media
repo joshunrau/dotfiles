@@ -16,11 +16,9 @@ from subprocess import CalledProcessError, run
 from tempfile import mkdtemp
 from typing import Any, Literal, TypedDict
 
-
+ARGS: Args
 IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp']
 VIDEO_EXTENSIONS = ['.mp4']
-
-ARGS: Args
 
 Encoding = Literal['H.264', 'H.265', 'UNKNOWN']
 LogLevel = Literal['ERROR', 'WARNING', 'LOG', 'VERBOSE']
@@ -93,8 +91,8 @@ def get_video_stream(streams: list[dict[str, Any]]) -> VideoStream | None:
 
 
 def get_video_info(filepath: Path) -> VideoInfo:
-    cmd = f'ffprobe -v quiet -print_format json -show_streams {filepath}'
-    result = run(cmd, capture_output=True, shell=True)
+    cmd = f'ffprobe -v quiet -print_format json -show_streams "{filepath}"'
+    result = run(cmd, capture_output=True, text=True, shell=True)
     try:
         try:
             result.check_returncode()
@@ -184,7 +182,6 @@ def main() -> None:
     for index, video in enumerate(videos_to_optimize):
         log(f'{'-' * 5} VIDEO {index + 1}/{len(videos_to_optimize)} {'-' * 5}')
         optimize_video(video)
-
 
 
 if __name__ == '__main__':
