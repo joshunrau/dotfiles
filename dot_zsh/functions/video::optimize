@@ -7,5 +7,10 @@ fi
 
 output="$(openssl rand -hex 16).mp4"
 ffmpeg -i "$1" -vcodec libx265 -crf 28 -tag:v hvc1 "$output"
-rm "$1"
-mv "$output" "$1"
+
+if [[ -f "$output" ]]; then
+  rm "$1"
+  mv "$output" "$1"
+else 
+  echo "Error: Output file does not exist" && exit 1
+fi
