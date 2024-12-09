@@ -308,19 +308,21 @@ def main() -> None:
 
     for index, video in enumerate(videos_to_optimize):
         log(f'{'-' * 5} VIDEO {index + 1}/{len(videos_to_optimize)} {'-' * 5}')
+
         progress_server = ProgressServer()
-        progress_server.reference_duration_ms = video.duration_ms
         progress_server_thread = Thread(daemon=True, target=progress_server.start)
+        progress_server.reference_duration_ms = video.duration_ms
+
         video_optimizer = VideoOptimizer(video, progress_server_url=f'http://localhost:{progress_server.port}')
         video_optimizer_thread = Thread(daemon=True, name='VideoOptimizer', target=video_optimizer.optimize_video)
-        if index == 0:
-            progress_server_thread.start()
-            video_optimizer_thread.start()
-        else:
-            progress_server_thread.run()
-            video_optimizer_thread.run()
+
+        progress_server_thread.start()
+        video_optimizer_thread.start()
+
         video_optimizer_thread.join()
         progress_server_thread.join()
+
+        progress_server.kill()
 
 
 if __name__ == '__main__':
