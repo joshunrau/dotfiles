@@ -166,10 +166,12 @@ def get_video_info(filepath: Path) -> VideoInfo:
 
 
 class ProgressServer:
+    reference_duration_ms: int | None
     port = 8637
 
     def __init__(self) -> None:
         self.address = ('127.0.0.1', self.port)
+        self.reference_duration_ms = None
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     def kill(self) -> None:
@@ -181,17 +183,17 @@ class ProgressServer:
             server.listen(1)
             ip, port = server.getsockname()
             self._port = port
-            print(f'Server listening on {ip}:{port}')
+            log(f'Progress server listening on {ip}:{port}')
             connection, client_address = server.accept()
             with connection:
                 self._handle_client(connection, client_address)
 
     def _handle_client(self, connection: socket.socket, address: Address) -> None:
         ip, port = address
-        print(f'Received connection from address: {ip}:{port}')
+        log(f'Received connection from address: {ip}:{port}', level='VERBOSE')
 
-        headers = self._receive_headers(connection)
-        print(headers.decode().strip())
+        self._receive_headers(connection)
+        # log(headers.decode().strip())
 
         data = b''
         while True:
@@ -203,12 +205,17 @@ class ProgressServer:
             self._print_data(chunk_data)
 
     def _print_data(self, data: bytes) -> None:
-        match = re.search(r'out_time_ms=(\d+)', data.decode())
+        if self.reference_duration_ms is None:
+            log('Reference duration is None', level='WARNING')
+            return None
+        text = data.decode().strip()
+        match = re.search(r'out_time_us=(\d+)', text)
         if match:
-            out_time_ms = int(match.group(1))
-            print(out_time_ms)
+            out_time_ms = int(match.group(1)) / 1000
+            progress = f'{round((out_time_ms / self.reference_duration_ms) * 100, 2)}%'
         else:
-            print('out_time_ms not found')
+            progress = 'N/A'
+        log(f'Progress: {progress}')
 
     def _receive_headers(self, connection: socket.socket) -> bytes:
         headers = b''
@@ -220,7 +227,6 @@ class ProgressServer:
         chunk_size_line = b''
         while not chunk_size_line.endswith(b'\r\n'):
             chunk_size_line += connection.recv(1)
-        print(chunk_size_line)
         return int(chunk_size_line.strip(), 16)
 
     def _receive_chunk_data(self, connection: socket.socket, chunk_size: int) -> bytes:
@@ -244,9 +250,13 @@ class VideoOptimizer:
             cmd = f'ffmpeg -i "{input_file}" -v warning -preset fast -vcodec libx265 -crf 28 -tag:v hvc1 -progress "{self.progress_server_url}" -nostats "{output_file}"'
 
             result = run(cmd, capture_output=True, text=True, shell=True)
-            if result.stderr:
-                log(result.stderr, level='ERROR')
-            result.check_returncode()
+
+            try:
+                result.check_returncode()
+            except CalledProcessError as err:
+                if result.stderr:
+                    log(result.stderr, level='ERROR')
+                raise err
 
             if not os.path.isfile(output_file):
                 raise FileNotFoundError(f'Expected file to exist: {output_file}')
@@ -299,6 +309,7 @@ def main() -> None:
 
     for index, video in enumerate(videos_to_optimize):
         log(f'{'-' * 5} VIDEO {index + 1}/{len(videos_to_optimize)} {'-' * 5}')
+        progress_server.reference_duration_ms = video.duration_ms
         video_optimizer = VideoOptimizer(video, progress_server_url=f'http://localhost:{progress_server.port}')
         video_optimizer_thread = Thread(daemon=True, name='VideoOptimizer', target=video_optimizer.optimize_video)
         progress_server_thread.start()
