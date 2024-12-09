@@ -14,7 +14,8 @@ from pathlib import Path
 import shutil
 from subprocess import CalledProcessError, run
 from tempfile import mkdtemp
-from typing import Any, Literal, TypedDict
+from typing import Any, Literal, Type, TypedDict
+
 
 ARGS: Args
 IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp']
@@ -33,11 +34,32 @@ class VideoStream(TypedDict):
     codec_name: str
     codec_long_name: str
     codec_type: Literal['audio', 'video']
+    height: int
+    width: int
 
 
 class VideoInfo(TypedDict):
     encoding: Encoding
     filepath: Path
+
+
+def log(*values: object, level: LogLevel = 'LOG') -> None:
+    if level == 'ERROR':
+        print(*('\033[91m{}\033[00m'.format(value) for value in values), file=sys.stderr)
+    elif level == 'WARNING':
+        print(*('\033[93m{}\033[00m'.format(value) for value in values), file=sys.stderr)
+    elif level == 'LOG':
+        print(*('\033[92m{}\033[00m'.format(value) for value in values))
+    elif level == 'VERBOSE' and ARGS['verbose']:
+        print(*('\033[97m{}\033[00m'.format(value) for value in values))
+
+
+def get_property[T](dictionary: dict[str, Any], attr: str, expected_type: Type[T]) -> T:
+    value = dictionary.get(attr)
+    if not isinstance(value, expected_type):
+        actual, expected = value.__class__.__name__, expected_type.__name__
+        raise ValueError(f"Unexpected type '{actual}' for attribute '{attr}': expected '{expected}'")
+    return value
 
 
 def parse_args() -> Args:
@@ -52,17 +74,6 @@ def parse_args() -> Args:
         raise NotADirectoryError(target)
 
     return {'target': target, 'verbose': args.verbose}
-
-
-def log(*values: object, level: LogLevel = 'LOG') -> None:
-    if level == 'ERROR':
-        print(*('\033[91m{}\033[00m'.format(value) for value in values), file=sys.stderr)
-    elif level == 'WARNING':
-        print(*('\033[93m{}\033[00m'.format(value) for value in values), file=sys.stderr)
-    elif level == 'LOG':
-        print(*('\033[92m{}\033[00m'.format(value) for value in values))
-    elif level == 'VERBOSE' and ARGS['verbose']:
-        print(*('\033[97m{}\033[00m'.format(value) for value in values))
 
 
 def format_size(size: float) -> str:
@@ -80,13 +91,13 @@ def get_video_stream(streams: list[dict[str, Any]]) -> VideoStream | None:
         codec_type = stream.get('codec_type')
         if codec_type != 'video':
             continue
-        codec_name = stream.get('codec_name')
-        codec_long_name = stream.get('codec_long_name')
-        if not isinstance(codec_name, str):
-            raise ValueError(f"Unexpected value for codec_name '{codec_name}': expected string")
-        elif not isinstance(codec_long_name, str):
-            raise ValueError(f"Unexpected value for codec_long_name '{codec_long_name}': expected string")
-        return {'codec_name': codec_name, 'codec_long_name': codec_long_name, 'codec_type': codec_type}
+        return {
+            'codec_name': get_property(stream, 'codec_name', str),
+            'codec_long_name': get_property(stream, 'codec_long_name', str),
+            'codec_type': codec_type,
+            'height': get_property(stream, 'height', int),
+            'width': get_property(stream, 'width', int),
+        }
     return None
 
 
