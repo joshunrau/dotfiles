@@ -34,7 +34,7 @@ class Args(TypedDict):
 
 @dataclass(kw_only=True)
 class BaseVideoInfo(ABC):
-    duration: float
+    duration_ms: int
     height: int
     width: int
 
@@ -106,7 +106,7 @@ def get_video_stream(streams: list[dict[str, Any]]) -> VideoStream | None:
             codec_name=get_property(stream, 'codec_name', str),
             codec_long_name=get_property(stream, 'codec_long_name', str),
             codec_type=codec_type,
-            duration=float(stream['duration']),
+            duration_ms=int(float(stream['duration']) * 1000),
             height=get_property(stream, 'height', int),
             width=get_property(stream, 'width', int),
         )
@@ -114,7 +114,7 @@ def get_video_stream(streams: list[dict[str, Any]]) -> VideoStream | None:
 
 
 def get_video_info(filepath: Path) -> VideoInfo:
-    cmd = f'ffprobe -v quiet -print_format json -show_streams "{filepath}"'
+    cmd = f'ffprobe -v warning -print_format json -show_streams "{filepath}"'
     result = run(cmd, capture_output=True, text=True, shell=True)
     try:
         try:
@@ -148,7 +148,11 @@ def get_video_info(filepath: Path) -> VideoInfo:
         else:
             encoding = 'UNKNOWN'
         return VideoInfo(
-            duration=stream.duration, encoding=encoding, filepath=filepath, height=stream.height, width=stream.width
+            duration_ms=stream.duration_ms,
+            encoding=encoding,
+            filepath=filepath,
+            height=stream.height,
+            width=stream.width,
         )
 
     except Exception as err:
