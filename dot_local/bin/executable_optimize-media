@@ -166,13 +166,11 @@ def get_video_info(filepath: Path) -> VideoInfo:
 
 
 class ProgressServer:
-    def __init__(self) -> None:
-        self.address = ('localhost', 0)
-        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    port = 8637
 
-    @property
-    def port(self) -> int:
-        return self.address[1]
+    def __init__(self) -> None:
+        self.address = ('127.0.0.1', self.port)
+        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     def kill(self) -> None:
         self.server.close()
@@ -182,6 +180,7 @@ class ProgressServer:
             server.bind(self.address)
             server.listen(1)
             ip, port = server.getsockname()
+            self._port = port
             print(f'Server listening on {ip}:{port}')
             connection, client_address = server.accept()
             with connection:
