@@ -41,6 +41,8 @@ class VideoStream(TypedDict):
 class VideoInfo(TypedDict):
     encoding: Encoding
     filepath: Path
+    height: int
+    width: int
 
 
 def log(*values: object, level: LogLevel = 'LOG') -> None:
@@ -135,7 +137,7 @@ def get_video_info(filepath: Path) -> VideoInfo:
             encoding = 'H.265'
         else:
             encoding = 'UNKNOWN'
-        return {'encoding': encoding, 'filepath': filepath}
+        return {'encoding': encoding, 'filepath': filepath, 'height': stream['height'], 'width': stream['width']}
 
     except Exception as err:
         raise RuntimeError(f'Failed to get video info for file {filepath}') from err
@@ -192,7 +194,8 @@ def main() -> None:
 
     for index, video in enumerate(videos_to_optimize):
         log(f'{'-' * 5} VIDEO {index + 1}/{len(videos_to_optimize)} {'-' * 5}')
-        optimize_video(video)
+        # optimize_video(video)
+        print(video)
 
 
 if __name__ == '__main__':
