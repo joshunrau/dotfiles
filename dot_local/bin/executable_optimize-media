@@ -9,7 +9,9 @@ import json
 import os
 import sys
 
+from abc import ABC
 from argparse import ArgumentParser
+from dataclasses import dataclass
 from pathlib import Path
 import shutil
 from subprocess import CalledProcessError, run
@@ -30,15 +32,22 @@ class Args(TypedDict):
     verbose: bool
 
 
-class VideoStream(TypedDict):
-    codec_name: str
-    codec_long_name: str
-    codec_type: Literal['audio', 'video']
+@dataclass(kw_only=True)
+class BaseVideoInfo(ABC):
+    duration: float
     height: int
     width: int
 
 
-class VideoInfo(TypedDict):
+@dataclass(kw_only=True)
+class VideoStream(BaseVideoInfo):
+    codec_name: str
+    codec_long_name: str
+    codec_type: Literal['audio', 'video']
+
+
+@dataclass(kw_only=True)
+class VideoInfo(BaseVideoInfo):
     encoding: Encoding
     filepath: Path
     height: int
@@ -93,13 +102,14 @@ def get_video_stream(streams: list[dict[str, Any]]) -> VideoStream | None:
         codec_type = stream.get('codec_type')
         if codec_type != 'video':
             continue
-        return {
-            'codec_name': get_property(stream, 'codec_name', str),
-            'codec_long_name': get_property(stream, 'codec_long_name', str),
-            'codec_type': codec_type,
-            'height': get_property(stream, 'height', int),
-            'width': get_property(stream, 'width', int),
-        }
+        return VideoStream(
+            codec_name=get_property(stream, 'codec_name', str),
+            codec_long_name=get_property(stream, 'codec_long_name', str),
+            codec_type=codec_type,
+            duration=float(stream['duration']),
+            height=get_property(stream, 'height', int),
+            width=get_property(stream, 'width', int),
+        )
     return None
 
 
@@ -131,20 +141,22 @@ def get_video_info(filepath: Path) -> VideoInfo:
             raise RuntimeError('Failed to find video stream')
 
         encoding: Encoding
-        if stream['codec_name'] == 'h264':
+        if stream.codec_name == 'h264':
             encoding = 'H.264'
-        elif stream['codec_name'] == 'hevc':
+        elif stream.codec_name == 'hevc':
             encoding = 'H.265'
         else:
             encoding = 'UNKNOWN'
-        return {'encoding': encoding, 'filepath': filepath, 'height': stream['height'], 'width': stream['width']}
+        return VideoInfo(
+            duration=stream.duration, encoding=encoding, filepath=filepath, height=stream.height, width=stream.width
+        )
 
     except Exception as err:
         raise RuntimeError(f'Failed to get video info for file {filepath}') from err
 
 
 def optimize_video(video_info: VideoInfo) -> None:
-    input_file = video_info['filepath']
+    input_file = video_info.filepath
     log(f'Optimizing video: {input_file}')
     input_size = os.path.getsize(input_file)
     tmp_dir = mkdtemp()
@@ -186,11 +198,11 @@ def main() -> None:
             if filepath.suffix in VIDEO_EXTENSIONS:
                 log(f'Found video: {filepath}', level='VERBOSE')
                 video_info = get_video_info(filepath)
-                if video_info['encoding'] != 'H.265':
+                if video_info.encoding != 'H.265':
                     videos_to_optimize.append(video_info)
 
     log(f'Found {len(videos_to_optimize)} video(s) to optimize')
-    log(*[' ' * 4 + f'{video['filepath']}' for video in videos_to_optimize], level='VERBOSE')
+    log(*[' ' * 4 + f'{video.filepath}' for video in videos_to_optimize], level='VERBOSE')
 
     for index, video in enumerate(videos_to_optimize):
         log(f'{'-' * 5} VIDEO {index + 1}/{len(videos_to_optimize)} {'-' * 5}')
