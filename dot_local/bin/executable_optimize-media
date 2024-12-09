@@ -297,8 +297,7 @@ def main() -> None:
     log(f'Found {len(videos_to_optimize)} video(s) to optimize')
     log(*[' ' * 4 + f'{video.filepath}' for video in videos_to_optimize], level='VERBOSE')
 
-    progress_server = ProgressServer()
-    
+    progress_server: ProgressServer
 
     def handle_thread_exception(arg: Any) -> None:
         thread: Thread = arg.thread
@@ -309,6 +308,7 @@ def main() -> None:
 
     for index, video in enumerate(videos_to_optimize):
         log(f'{'-' * 5} VIDEO {index + 1}/{len(videos_to_optimize)} {'-' * 5}')
+        progress_server = ProgressServer()
         progress_server.reference_duration_ms = video.duration_ms
         progress_server_thread = Thread(daemon=True, target=progress_server.start)
         video_optimizer = VideoOptimizer(video, progress_server_url=f'http://localhost:{progress_server.port}')
