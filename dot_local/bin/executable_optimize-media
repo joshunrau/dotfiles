@@ -284,8 +284,8 @@ class VideoOptimizer:
 
 def main() -> None:
     log(f'Optimizing media in target directory: {ARGS['target']}')
+    videos_to_optimize: list[VideoInfo] = []
     for root, _, files in os.walk(ARGS['target']):
-        videos_to_optimize: list[VideoInfo] = []
         for filename in files:
             filepath = Path(os.path.join(ARGS['target'], root, filename))
             if filepath.suffix in VIDEO_EXTENSIONS:
