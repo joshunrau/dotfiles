@@ -291,6 +291,7 @@ def main() -> None:
             if filepath.suffix in VIDEO_EXTENSIONS:
                 log(f'Found video: {filepath}', level='VERBOSE')
                 video_info = get_video_info(filepath)
+                log(f"Encoding: {video_info.encoding}", level='VERBOSE')
                 if video_info.encoding != 'H.265':
                     videos_to_optimize.append(video_info)
 
