@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+
+FILE="$1"
+
+if [ -z "$FILE" ]; then
+  echo "Usage: $0 <filename>"
+  exit 1
+fi
+
+UNAME=$(uname)
+if [[ "$UNAME" == "Darwin" ]]; then
+  stat -f "%Lp %N" "$FILE"
+elif [[ "$UNAME" == "Linux" ]]; then
+  stat -c "%a %n" "$FILE"
+else
+  echo "Unsupported OS: $UNAME"
+  exit 1
+fi
