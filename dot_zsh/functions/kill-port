@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+
+PORT="$1"
+
+if [ -z "$PORT" ]; then
+  echo "Usage: $0 <port>"
+  exit 1
+fi
+
+PID=$(lsof -ti :$PORT)
+
+if [ -z "$PID" ]; then
+  echo "No process is using port $PORT"
+  exit 1
+else
+  kill -9 $PID
+  echo "Killed process $PID using port $PORT"
+fi
