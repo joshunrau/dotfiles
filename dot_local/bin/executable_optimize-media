@@ -247,7 +247,7 @@ class VideoOptimizer:
         log(f'Created directory: {tmp_dir}', level='VERBOSE')
         try:
             output_file = os.path.join(tmp_dir, 'output.mp4')
-            cmd = f'ffmpeg -i "{input_file}" -v warning -c:v hevc_videotoolbox -b:v 5M -tag:v hvc1 -progress "{self.progress_server_url}" -nostats -stats_period 5 "{output_file}"'
+            cmd = f'ffmpeg -i "{input_file}" -v warning -c:v hevc_videotoolbox -q:v 50 -tag:v hvc1 -progress "{self.progress_server_url}" -nostats -stats_period 5 "{output_file}"'
             #cmd = f'ffmpeg -i "{input_file}" -v warning -preset fast -vcodec libx265 -crf 22 -tag:v hvc1 -progress "{self.progress_server_url}" -nostats -stats_period 5 "{output_file}"'
 
             result = run(cmd, capture_output=True, text=True, shell=True)
