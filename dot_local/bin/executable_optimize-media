@@ -277,14 +277,18 @@ class VideoOptimizer:
             output_size = os.path.getsize(output_file)
             if output_size == 0:
                 raise RuntimeError(f'Output file is empty: {output_file}')
+            
 
-            os.remove(input_file)
-            shutil.move(output_file, input_file)
+
+   
 
             diff = round(((output_size - input_size) / input_size) * 100, 1)
             if output_size > input_size:
+                os.remove(output_file)
                 log(f'WARNING: Output file size exceeds input file size (+{diff}%)', level='WARNING')
             else:
+                os.remove(input_file)
+                shutil.move(output_file, input_file)
                 log(f'Done! Output filesize: {format_size(output_size)} ({diff}%)')
 
         except Exception as err:
