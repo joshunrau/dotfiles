@@ -35,6 +35,7 @@ Address = tuple[str, int]
 
 class Args(TypedDict):
     target: Path
+    quality: int
     verbose: bool
 
 
@@ -82,6 +83,12 @@ def get_property[T](dictionary: dict[str, Any], attr: str, expected_type: Type[T
 def parse_args() -> Args:
     parser = ArgumentParser(prog='optimize-media')
     parser.add_argument('target', type=Path)
+    parser.add_argument(
+        "--quality",
+        action="store_true",
+        required=False,
+        default='50'
+    )
     parser.add_argument('--verbose', action='store_true')
 
     args = parser.parse_args()
@@ -90,7 +97,7 @@ def parse_args() -> Args:
     if not target.is_dir():
         raise NotADirectoryError(target)
 
-    return {'target': target, 'verbose': args.verbose}
+    return {'target': target, 'quality':int(args.quality),  'verbose': args.verbose}
 
 
 def format_size(size: float) -> str:
@@ -247,7 +254,11 @@ class VideoOptimizer:
         log(f'Created directory: {tmp_dir}', level='VERBOSE')
         try:
             output_file = os.path.join(tmp_dir, 'output.mp4')
-            cmd = f'ffmpeg -i "{input_file}" -v warning -c:v hevc_videotoolbox -q:v 50 -tag:v hvc1 -progress "{self.progress_server_url}" -nostats -stats_period 5 "{output_file}"'
+            quality = ARGS.get('quality')
+            qv = ''
+            if quality > 0:
+                qv = '-q:v 50'
+            cmd = f'ffmpeg -i "{input_file}" -v warning -c:v hevc_videotoolbox {qv} -tag:v hvc1 -progress "{self.progress_server_url}" -nostats -stats_period 5 "{output_file}"'
             #cmd = f'ffmpeg -i "{input_file}" -v warning -preset fast -vcodec libx265 -crf 22 -tag:v hvc1 -progress "{self.progress_server_url}" -nostats -stats_period 5 "{output_file}"'
 
             result = run(cmd, capture_output=True, text=True, shell=True)
