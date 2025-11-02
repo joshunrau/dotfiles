@@ -341,5 +341,4 @@ def main() -> None:
 
 if __name__ == '__main__':
     ARGS = parse_args()
-    print(ARGS)
-    #main()
+    main()
