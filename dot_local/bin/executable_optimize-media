@@ -84,8 +84,9 @@ def parse_args() -> Args:
     parser = ArgumentParser(prog='optimize-media')
     parser.add_argument('target', type=Path)
     parser.add_argument(
+        '-q',
         "--quality",
-        action="store_true",
+        type=int,
         required=False,
         default='50'
     )
@@ -257,7 +258,7 @@ class VideoOptimizer:
             quality = ARGS.get('quality')
             qv = ''
             if quality > 0:
-                qv = '-q:v 50'
+                qv = f'-q:v {quality}'
             cmd = f'ffmpeg -i "{input_file}" -v warning -c:v hevc_videotoolbox {qv} -tag:v hvc1 -progress "{self.progress_server_url}" -nostats -stats_period 5 "{output_file}"'
             #cmd = f'ffmpeg -i "{input_file}" -v warning -preset fast -vcodec libx265 -crf 22 -tag:v hvc1 -progress "{self.progress_server_url}" -nostats -stats_period 5 "{output_file}"'
 
@@ -277,11 +278,7 @@ class VideoOptimizer:
             output_size = os.path.getsize(output_file)
             if output_size == 0:
                 raise RuntimeError(f'Output file is empty: {output_file}')
-            
-
-
-   
-
+ 
             diff = round(((output_size - input_size) / input_size) * 100, 1)
             if output_size > input_size:
                 os.remove(output_file)
@@ -344,4 +341,5 @@ def main() -> None:
 
 if __name__ == '__main__':
     ARGS = parse_args()
-    main()
+    print(ARGS)
+    #main()
